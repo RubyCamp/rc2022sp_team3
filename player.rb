@@ -46,7 +46,22 @@ class Player
           enemy.mesh.material.color.set(0xff0000)
           @scene.remove(bullet.mesh)
           @bullets.delete(bullet)
-          @score.points += 1
+          @scene.remove(enemy.mesh)
+          @enemies.delete(enemy)
+          @score.points += 50
+        else
+          # 衝突してない
+        end
+      end
+    end
+  end
+
+  def check(enemy_bullets)
+    enemy_bullets.each do |enemy_bullet|
+      @enemy_bullets.each do |enemy_bullet|
+        if enemy_bullet.mesh.position.distance_to(player.mesh.position) <= 0.1 + 0.5
+          player.mesh.material.color.set(0xff0000)
+          puts "game over"
         else
           # 衝突してない
         end
