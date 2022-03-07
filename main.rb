@@ -1,7 +1,8 @@
-<<<<<<< HEAD
-puts "hello World"
-=======
 require 'mittsu'
+
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+
 
 scene = Mittsu::Scene.new
 camera = Mittsu::PerspectiveCamera.new(75.0, 1.333, 0.1, 1000.0)
@@ -33,4 +34,3 @@ renderer.window.run do
 
   renderer.render(scene, camera)
 end
->>>>>>> 670584062909972e07ad04a29d6e45384572813e
