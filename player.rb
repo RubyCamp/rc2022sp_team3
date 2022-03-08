@@ -3,12 +3,20 @@ require_relative 'bullet'
 class Player
   attr_accessor :mesh
 
-  def initialize(x, y, z, renderer, scene, score)
+  def initialize(x, y, z, renderer, scene, score, hitpoint)
     @mesh = Mittsu::Mesh.new(
       Mittsu::BoxGeometry.new(1.0, 1.0, 1.0),
       Mittsu::MeshBasicMaterial.new(color: 0x00ff00)
     )
     @mesh.position.set(x, y, z)
+
+  =begin
+    @mesh2 = Mittsu::Mesh.new(
+      Mittsu::BoxGeometry.new(2.0, 50.0, 0.0)
+      Mittsu::MeshBasicMaterial.new(color: 0xffff00)
+    )
+    @mesh2.position.set(x, y, z)
+  =end
 
     @renderer = renderer
     @scene = scene
@@ -24,6 +32,16 @@ class Player
     end
     
     @score = score
+    @hitpoint = hitpoint
+
+  =begin
+    Mittsu::Sprite.new(@mesh2).tap do |sprite|
+      sprite.scale.set(128, 128, 1.0)
+      sprite.position.set((screen_width / 2.0) + 64 + dx * index, (screen_height / 2.0) + 64, 0.0)
+      @scene.add(sprite)
+      @mesh2 << sprite
+    end
+  =end
   end
 
   def update
@@ -46,6 +64,7 @@ class Player
           enemy.mesh.material.color.set(0xff0000)
           @scene.remove(bullet.mesh)
           @bullets.delete(bullet)
+          sleep(0.5)
           @scene.remove(enemy.mesh)
           @enemies.delete(enemy)
           @score.points += 50
@@ -56,16 +75,27 @@ class Player
     end
   end
 
+  def check2(enemies)
+    enemies.each do |enemy|
+      if @mesh.position.distance_to(enemy.mesh.position) <= 0.1 + 0.5
+        @hitpoint.hitpoints -= 10
+        @scene.remove(enemy.mesh)
+        @enemies.delete(enemy)
+        @score.points -= 100
+      else
+        # 
+      end
+    end
+  end
+
 =begin
-  def check(enemy_bullets)
+  def check3(enemy_bullets)
     enemy_bullets.each do |enemy_bullet|
-      @enemy_bullets.each do |enemy_bullet|
-        if enemy_bullet.mesh.position.distance_to(player.mesh.position) <= 0.1 + 0.5
-          player.mesh.material.color.set(0xff0000)
-          puts "game over"
-        else
-          # 衝突してない
-        end
+      if @mesh.position.distance_to(enemy_bullet.mesh.position) <= 0.1 + 0.5
+        @hitpoint -= 10
+        @score.points -= 100
+      else
+        # 
       end
     end
   end
