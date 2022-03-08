@@ -5,17 +5,16 @@ class Enemy
 
   def initialize(x, y, z, renderer, scene)
     @x,@y,@z = x,y,z
+    @scene,@renderer = scene,renderer
+    @hitpoint = 3
+    @bullets =[]
+    @dflg = 0
+
     @mesh = Mittsu::Mesh.new(#メッシュにまとめて代入
       Mittsu::BoxGeometry.new(1, 1, 1),
       Mittsu::MeshBasicMaterial.new(color: 0x0000ff)
     )
-    @mesh.position.set(x, y, z)
-
-    @scene,@renderer = scene,renderer
-
-    @hitpoint = 3
-    @bullets =[]
-    @boxs = []
+    @mesh.position.set(@x, @y, @z)
   end
 
   def fire#敵が弾を発射
@@ -24,26 +23,46 @@ class Enemy
     @bullets << @bullet 
   end
 
-  def dead#消滅時処理
-    @box = Box.new(@x,@y,@z,@scene)
-    @scene.add(@box.mesh)
-    @boxs << @box
+  def hit#被弾時
+    @hitpoint-=1
+    if hitpoint < 0
+      dead
+    end
   end
 
-  def update#移動
-    mesh.position.z += 0.1
+  def dead#hp<0
+    @scene.remove(@mesh)
+    @mesh = Box.new(@x,@y,@z)
+    @scene.add(@mesh)
+    @dflug = -1
+  end
+
+  def playerhit#プレイヤーに当たった
+    if dflg == 0
+      return -1
+    else
+      @scene.remove(@mesh)
+      return 0
+    end
+  end
+
+  def update(px,py,pz)#追加分のxyz座標を入力
+    @x += px
+    @y += py
+    @z += pz
+    @z += 1
+    @mesh.position.set(@x,@y,@z)
   end
 end
 
 class Box#アイテムbox
   attr_accessor :mesh
-  def initialize(x,y,z,scene)
-    @x,@y,@z,@scene = x,y,z,scene
+  def initialize(x,y,z)
+    @x,@y,@z = x,y,z
     @mesh = Mittsu::Mesh.new(
      Mittsu::BoxGeometry.new(1, 1, 1),
      Mittsu::MeshBasicMaterial.new(color: 0x000055)
     )
-    @bullet.position.set(@x,@y,@z)
+    @mesh.position.set(@x,@y,@z)
   end
-
 end
