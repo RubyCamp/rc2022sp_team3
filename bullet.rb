@@ -1,5 +1,5 @@
 class Bullet
-  attr_accessor :mesh
+  attr_accessor :mesh,:mesh2
 
   def initialize(x, y, z)
     @mesh = Mittsu::Mesh.new(
@@ -19,6 +19,9 @@ class Bullet
 
   def update
     @mesh.position.z -= @speedZ
+  end
+
+  def update2
     @mesh2.position.z += @speedZ
   end
 end
