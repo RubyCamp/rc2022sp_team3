@@ -16,7 +16,7 @@ class Enemy
   end
 
 
-  def hit#プレイヤーの弾が当たった時
+  def hit#プレイヤーの弾が当たった時 -> check関数で処理済み
     @hitpoint -= 1
     @bullets =[]
     @boxs = []
@@ -26,20 +26,22 @@ class Enemy
     @bullet = Bullet.new(@x,@y,@z)
     @scene.add(@bullet.mesh2)
     @bullets << @bullet
+    bullet.update2
   end
 
-  def dead#消滅時処理
+  def dead#消滅時処理 -> check関数で処理済み
     @box = Box.new(@x,@y,@z,@scene)
     @scene.add(@box.mesh)
     @boxs << @box
   end
 
   def update#移動
-    #mesh.position.z += 0.1
+    mesh.position.x += (rand(0.1..0.5) + 0.1).to_f
+    mesh.position.z += (rand(0.1..0.5) + 0.2).to_f
   end
 end
 
-class Box#アイテムbox
+class Box#アイテムbox -> 今回は使用しないかも...
   attr_accessor :mesh
   def initialize(x,y,z,scene)
     @x,@y,@z,@scene = x,y,z,scene

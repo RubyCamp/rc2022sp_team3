@@ -19,7 +19,8 @@ class Score
           @digits << sprite
         end
       end
-
+      
+      # 体力ゲージを右下に描画#
       geometry = Mittsu::BoxGeometry.new(2.0, @hitpoint, 0.0)
       materia = Mittsu::SpriteMaterial.new(geometry: geometry, color: 0xffff00)
       Mittsu::Sprite.new(materia).tap do |sprite2|
@@ -30,7 +31,7 @@ class Score
     end
   
     def update_points
-      sprintf("%03d", @points).chars.each_with_index do |point, index|
+      sprintf("%05d", @points).chars.each_with_index do |point, index|
         map = Mittsu::ImageUtils.load_texture("images/#{point}.png")
         sprite = @digits[index]
         sprite.material.set_values(map: map)
@@ -38,6 +39,7 @@ class Score
       end
     end
 
+     # 体力の処理 #
     # def update_hitpoints
     # end  
 
