@@ -13,6 +13,11 @@ class Enemy
     @scene,@renderer = scene,renderer
 
     @hitpoint = 3
+  end
+
+
+  def hit#プレイヤーの弾が当たった時
+    @hitpoint -= 1
     @bullets =[]
     @boxs = []
   end
