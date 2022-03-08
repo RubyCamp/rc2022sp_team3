@@ -1,5 +1,7 @@
+require_relative 'bullet.rb' #敵の弾はbulletのmesh2を使用
+
 class Enemy
-  attr_accessor :mesh, :bullets, :hitpoint
+  attr_accessor :mesh,:hitpoint,:bullets
 
   def initialize(x, y, z, renderer, scene)
     @mesh = Mittsu::Mesh.new(#メッシュにまとめて代入
@@ -10,33 +12,31 @@ class Enemy
 
     @scene,@renderer = scene,renderer
 
-    @scene.add(@mesh)
-
-    @bullets = []
-    @boxs = []
     @hitpoint = 3
   end
 
 
   def hit#プレイヤーの弾が当たった時
     @hitpoint -= 1
+    @bullets =[]
+    @boxs = []
   end
 
   def fire#敵が弾を発射
-    @bullet = Enemybullet.new(@x,@y,@z,@scene) 
+    @bullet = Bullet.new(@x,@y,@z)
+    @scene.add(@bullet.mesh2)
     @bullets << @bullet
   end
 
   def dead#消滅時処理
     @box = Box.new(@x,@y,@z,@scene)
+    @scene.add(@box.mesh)
     @boxs << @box
-    @scene.remove(@mesh)
   end
 
   def update#移動
     mesh.position.x += rand(2)
     mesh.position.z += rand(2)
->>>>>>> f99c24f5cfaa105120ac94217ee4a8015c8fbe03
   end
 end
 
@@ -61,20 +61,19 @@ class Enemybullet#敵弾
   end
 end
 
+    #mesh.position.z += 0.1
+  end
+end
 
 class Box#アイテムbox
+  attr_accessor :mesh
   def initialize(x,y,z,scene)
     @x,@y,@z,@scene = x,y,z,scene
-    @box = Mittsu::Mesh.new(
+    @mesh = Mittsu::Mesh.new(
      Mittsu::BoxGeometry.new(1, 1, 1),
      Mittsu::MeshBasicMaterial.new(color: 0x000055)
     )
     @bullet.position.set(@x,@y,@z)
-    @scene.add(@box)
-  end
-
-  def del
-    @scene.remove(@box)
   end
 
 end
