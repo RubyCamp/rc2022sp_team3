@@ -17,10 +17,6 @@ class Enemy
     @boxs = []
   end
 
-  def hit#プレイヤーの弾が当たった時
-    @hitpoint -= 1
-  end
-
   def fire#敵が弾を発射
     @bullet = Bullet.new(@x,@y,@z)
     @scene.add(@bullet.mesh2)
@@ -37,7 +33,6 @@ class Enemy
     #mesh.position.z += 0.1
   end
 end
-
 
 class Box#アイテムbox
   attr_accessor :mesh
