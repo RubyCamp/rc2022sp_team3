@@ -2,7 +2,7 @@ require_relative 'bullet'
 
 class Player
   attr_accessor :mesh
-
+  
   def initialize(x, y, z, renderer, scene, score, hitpoint)
     @mesh = Mittsu::Mesh.new(
       Mittsu::BoxGeometry.new(1.0, 1.0, 1.0),
