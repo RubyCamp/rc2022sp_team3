@@ -52,7 +52,7 @@ class Player
           sleep(0.5)
           @scene.remove(enemy.mesh)
           @enemies.delete(enemy)
-          @score.points += 50
+          @score.points += 1
         else
           # 衝突してない
         end

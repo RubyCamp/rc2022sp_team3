@@ -24,9 +24,9 @@ class Score
       geometry = Mittsu::BoxGeometry.new(2.0, @hitpoint, 0.0)
       material = Mittsu::SpriteMaterial.new(geometry: geometry, color: 0xffff00)
       sprite = Mittsu::Sprite.new(material)
-      sprite.scale.set(128, -128, 0)
-      sprite.position.set((screen_width / 2.0) + 64 + dx, (screen_height / 2.0) + 64, 0.0)
-      @scene2.add(sprite)
+      sprite.scale.set(128, -256, 0)
+      # sprite.position.set((screen_width / 2.0) + 64 + dx * 2, (screen_height / 2.0) + 64, 0.0)
+      @scene.add(sprite)
         
     end
   
