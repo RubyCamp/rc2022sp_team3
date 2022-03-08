@@ -16,7 +16,7 @@ class Enemy
     @boxs = []
     @hitpoint
   end
-
+  
   def fire
     @bullets << Enemybullet.new(x,y,z)    
   end
@@ -26,13 +26,13 @@ class Enemy
   end
 
   def goforwerd
-    mesh.position.x += rand(2)
-    mesh.position.z += rand(2)
+    mesh.position.x += 0.5
+    mesh.position.z += 0.5
   end
 
   def goback
-    mesh.position.x -= rand(2)
-    mesh.position.z -= rand(2)
+    mesh.position.x -= 0.5
+    mesh.position.z -= 0.5
 
   end
 
