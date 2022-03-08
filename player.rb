@@ -60,7 +60,8 @@ class Player
       end
     end
   end
-
+  
+  # enemyとplayerの接触処理 #
   def check2(enemies)
     enemies.each do |enemy|
       if @mesh.position.distance_to(enemy.mesh.position) <= 0.1 + 0.5
@@ -74,6 +75,7 @@ class Player
     end
   end
 
+  # enemyの弾とplayerの接触処理 #
 =begin
   def check3(enemy_bullets)
     enemy_bullets.each do |enemy_bullet|
