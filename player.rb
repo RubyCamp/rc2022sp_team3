@@ -15,7 +15,7 @@ class Player
     
     @bullets = []
     @enemies = []
-    @renderer.window.on_key_typed do |key|
+    @renderer.window.on_mouse_button_pressed do |key|
       case key
       when GLFW_KEY_SPACE
         bullet = Bullet.new(@mesh.position.x, @mesh.position.y, @mesh.position.z)
@@ -40,19 +40,20 @@ class Player
     @bullets.each do |bullet|
       bullet.update
     end
-  end
+  end 
 
   def check(enemies)
     enemies.each do |enemy|
       @bullets.each do |bullet|
         if bullet.mesh.position.distance_to(enemy.mesh.position) <= 0.1 + 0.5
           enemy.mesh.material.color.set(0xff0000)
-          @scene.remove(bullet.mesh)
-          @bullets.delete(bullet)
-          sleep(0.5)
           @scene.remove(enemy.mesh)
           @enemies.delete(enemy)
-          @score.points += 50
+          sleep(0.1)
+          @scene.remove(bullet.mesh)
+          @bullets.delete(bullet)
+          
+          @score.points += 1
         else
           # 衝突してない
         end
