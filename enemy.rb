@@ -1,4 +1,4 @@
-require_relative 'bullet.rb' #敵の弾はbulletのmesh2を使用
+require_relative 'bullet' #敵の弾はbulletのmesh2を使用
 
 class Enemy
   attr_accessor :mesh,:hitpoint,:bullets
@@ -35,32 +35,6 @@ class Enemy
   end
 
   def update#移動
-    mesh.position.x += rand(2)
-    mesh.position.z += rand(2)
-  end
-end
-
-
-class Enemybullet#敵弾
-  def initialize(x,y,z, scene)
-    @x,@y,@z,@scene = x,y,z,scene
-    @bullet = Mittsu::Mesh.new(
-      Mittsu::SphereGeometry.new(0.5,0.5,0.5),
-      Mittsu::MeshBasicMaterial.new(color: 0x0050ff)
-    )
-    @bullet.position.set(@x,@y,@z)
-    @scene.add(@bullet)
-  end
-
-  def update
-    @bullet.position.z -= 1 
-  end
-
-  def del
-    @scene.remove(@bullet)
-  end
-end
-
     #mesh.position.z += 0.1
   end
 end
