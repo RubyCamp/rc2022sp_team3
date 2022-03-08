@@ -20,19 +20,16 @@ class Score
         end
       end
 
-      @mesh = Mittsu::Sprite.new(
+      @mesh = Mittsu::Mesh.new(|
         geometry = Mittsu::BoxGeometry.new(2.0, @hitpoint, 0.0)
-        material = Mittsu::SpriteMaterial.new(color: 0xffff00)
+        material = Mittsu::SpriteMaterial.new(geometry: geometry, color: 0xffff00)
+        Mittsu::Sprite.new(material).tap do |sprite|
+          sprite.scale.set(128, 128, 1.0)
+          sprite.position.set((screen_width / 2.0) + 64 + dx * index, (screen_height / 2.0) + 64, 0.0)
+          @scene.add(sprite)
+        end
       )
-
-      @mesh.position.set(x, y, z)
-      
-      @mesh.tap do |sprite|
-        sprite.scale.set(128, 128, 1.0)
-        sprite.position.set((screen_width / 2.0) + 64 + dx * index, (screen_height / 2.0) + 64, 0.0)
-        @scene.add(sprite)
       end
-    end
   
     def update_points
       sprintf("%03d", @points).chars.each_with_index do |point, index|
