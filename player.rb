@@ -56,6 +56,7 @@ class Player
     end
   end
 
+=begin
   def check(enemy_bullets)
     enemy_bullets.each do |enemy_bullet|
       @enemy_bullets.each do |enemy_bullet|
@@ -68,4 +69,5 @@ class Player
       end
     end
   end
+=end
 end
