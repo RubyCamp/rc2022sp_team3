@@ -88,6 +88,7 @@ class Player
     end
   end
 
+=begin
   def check3(enemy_bullets)
     enemy_bullets.each do |enemy_bullet|
       if @mesh.position.distance_to(enemy_bullet.mesh.position) <= 0.1 + 0.5
@@ -98,4 +99,5 @@ class Player
       end
     end
   end
+=end
 end

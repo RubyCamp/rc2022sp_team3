@@ -1,4 +1,3 @@
-# nakao test
 class Score
     attr_accessor :scene, :camera, :points
   
@@ -6,6 +5,7 @@ class Score
       @camera = Mittsu::OrthographicCamera.new(-screen_width / 2.0, screen_width / 2.0, screen_height / 2.0, -screen_height / 2.0, 0.0, 1.0)
       @scene = Mittsu::Scene.new
       @points = 0
+      @hitpoint = 100
       @digits = []
       dx = 64
   
