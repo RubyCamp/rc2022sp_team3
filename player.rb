@@ -71,6 +71,7 @@ class Player
       end
     end
   end
+
 =begin
   def check3(enemy_bullets)
     enemy_bullets.each do |enemy_bullet|
