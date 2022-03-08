@@ -3,7 +3,7 @@ require_relative 'bullet'
 class Player
   attr_accessor :mesh
   
-  def initialize(x, y, z, renderer, scene, score, hitpoint)
+  def initialize(x, y, z, renderer, scene, score)
     @mesh = Mittsu::Mesh.new(
       Mittsu::BoxGeometry.new(1.0, 1.0, 1.0),
       Mittsu::MeshBasicMaterial.new(color: 0x00ff00)
@@ -14,9 +14,10 @@ class Player
     @scene = scene
     
     @bullets = []
+    @enemies = []
     @renderer.window.on_key_typed do |key|
       case key
-      when GLFW_MOUSE_BUTTON_RIGHT
+      when GLFW_KEY_SPACE
         bullet = Bullet.new(@mesh.position.x, @mesh.position.y, @mesh.position.z)
         @scene.add(bullet.mesh)
         @bullets << bullet
@@ -31,8 +32,8 @@ class Player
   def update
     @mesh.position.y += 0.1 if @renderer.window.key_down?(GLFW_KEY_W)
     @mesh.position.y -= 0.1 if @renderer.window.key_down?(GLFW_KEY_S)
-    @mesh.position.x -= 0.1 if @renderer.window.key_down?(GLFW_KEY_D)
-    @mesh.position.x += 0.1 if @renderer.window.key_down?(GLFW_KEY_A)
+    @mesh.position.x -= 0.1 if @renderer.window.key_down?(GLFW_KEY_A)
+    @mesh.position.x += 0.1 if @renderer.window.key_down?(GLFW_KEY_D)
     @mesh.position.z += 0.1 if @renderer.window.key_down?(GLFW_KEY_E)
     @mesh.position.z -= 0.1 if @renderer.window.key_down?(GLFW_KEY_Q)
 
