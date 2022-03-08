@@ -4,6 +4,7 @@ class Enemy
   attr_accessor :mesh,:hitpoint,:bullets
 
   def initialize(x, y, z, renderer, scene)
+    @x,@y,@z = x,y,z
     @mesh = Mittsu::Mesh.new(#メッシュにまとめて代入
       Mittsu::BoxGeometry.new(1, 1, 1),
       Mittsu::MeshBasicMaterial.new(color: 0x0000ff)
@@ -20,7 +21,7 @@ class Enemy
   def fire#敵が弾を発射
     @bullet = Bullet.new(@x,@y,@z)
     @scene.add(@bullet.mesh2)
-    @bullets << @bullet
+    @bullets << @bullet 
   end
 
   def dead#消滅時処理
@@ -30,7 +31,7 @@ class Enemy
   end
 
   def update#移動
-    #mesh.position.z += 0.1
+    mesh.position.z += 0.1
   end
 end
 
