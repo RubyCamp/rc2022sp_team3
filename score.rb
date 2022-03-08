@@ -4,7 +4,6 @@ class Score
     def initialize(screen_width, screen_height)
       @camera = Mittsu::OrthographicCamera.new(-screen_width / 2.0, screen_width / 2.0, screen_height / 2.0, -screen_height / 2.0, 0.0, 1.0)
       @scene = Mittsu::Scene.new
-      @scene2 = Mittsu::Scene.new
       @points = 0
       @hitpoint = 100
       @digits = []
@@ -22,12 +21,12 @@ class Score
       end
 
       geometry = Mittsu::BoxGeometry.new(2.0, @hitpoint, 0.0)
-      material = Mittsu::SpriteMaterial.new(geometry: geometry, color: 0xffff00)
-      sprite = Mittsu::Sprite.new(material)
-      sprite.scale.set(128, -256, 0)
-      # sprite.position.set((screen_width / 2.0) + 64 + dx * 2, (screen_height / 2.0) + 64, 0.0)
-      @scene.add(sprite)
-        
+      materia = Mittsu::SpriteMaterial.new(geometry: geometry, color: 0xffff00)
+      Mittsu::Sprite.new(materia).tap do |sprite2|
+        sprite2.scale.set(128, -256, 0)
+        sprite2.position.set((screen_width / 2.0) + 64 + dx * 2, (screen_height / 2.0) + 64, 0.0)
+        @scene.add(sprite2)
+      end  
     end
   
     def update_points
