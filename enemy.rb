@@ -18,9 +18,13 @@ class Enemy
   end
 
   def fire#敵が弾を発射
+    if @dflg == 0
     @bullet = Bullet.new(@x,@y,@z)
     @scene.add(@bullet.mesh2)
     @bullets << @bullet 
+    else 
+      return -1
+    end
   end
 
   def hit#被弾時
@@ -32,16 +36,21 @@ class Enemy
 
   def dead#hp<0
     @scene.remove(@mesh)
-    @mesh = Box.new(@x,@y,@z)
-    @scene.add(@mesh)
-    @dflug = -1
+    @bullets.each do |bullet|
+      @scene.remove(bullet.mesh2)
+      @bullets.delete(bullet)
+    end
+
+    @box = Box.new(@x,@y,@z)
+    @scene.add(@box.mesh)
+    @dflg = -1
   end
 
   def playerhit#プレイヤーに当たった
-    if dflg == 0
+    if @dflg == 0
       return -1
     else
-      @scene.remove(@mesh)
+      @scene.remove(@box.mesh)
       return 0
     end
   end
