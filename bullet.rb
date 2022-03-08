@@ -1,20 +1,16 @@
 class Bullet
-  attr_accessor :mesh,:speedX,:speedY,:speedZ
+  attr_accessor :mesh
 
-  def initialize(x, y, z, sizeX,sizeY,sizeZ,col,speedX,speedY,speeedZ)
+  def initialize(x, y, z)
     @mesh = Mittsu::Mesh.new(
       Mittsu::BoxGeometry.new(sizeX, sizeY, sizeZ),
       Mittsu::MeshBasicMaterial.new(color: col)
     )
     @mesh.position.set(x, y, z)
-    @speedX = speedX
-    @speedY = speedY
-    @speedZ = speedZ
+    @speedZ = 0.5
   end
 
   def update
-    @mesh.position.x += @speedX
-    @mesh.position.y += @speedY
     @mesh.position.z += @speedZ
   end
 end
