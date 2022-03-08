@@ -9,7 +9,7 @@ class Score
       @digits = []
       dx = 64
   
-      sprintf("%03d", @points).chars.each_with_index do |point, index|
+      sprintf("%05d", @points).chars.each_with_index do |point, index|
         map = Mittsu::ImageUtils.load_texture("images/#{point}.png")
         material = Mittsu::SpriteMaterial.new(map: map)
         Mittsu::Sprite.new(material).tap do |sprite|
@@ -18,6 +18,19 @@ class Score
           @scene.add(sprite)
           @digits << sprite
         end
+      end
+
+      @mesh = Mittsu::Sprite.new(
+        geometry = Mittsu::BoxGeometry.new(2.0, @hitpoint, 0.0)
+        material = Mittsu::SpriteMaterial.new(color: 0xffff00)
+      )
+
+      @mesh.position.set(x, y, z)
+      
+      @mesh.tap do |sprite|
+        sprite.scale.set(128, 128, 1.0)
+        sprite.position.set((screen_width / 2.0) + 64 + dx * index, (screen_height / 2.0) + 64, 0.0)
+        @scene.add(sprite)
       end
     end
   
@@ -29,4 +42,9 @@ class Score
         material = Mittsu::SpriteMaterial.new(map: map)
       end
     end
+
+    # def update_hitpoints
+    # end  
+
   end
+  
