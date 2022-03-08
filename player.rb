@@ -10,21 +10,13 @@ class Player
     )
     @mesh.position.set(x, y, z)
 
-  =begin
-    @mesh2 = Mittsu::Mesh.new(
-      Mittsu::BoxGeometry.new(2.0, 50.0, 0.0)
-      Mittsu::MeshBasicMaterial.new(color: 0xffff00)
-    )
-    @mesh2.position.set(x, y, z)
-  =end
-
     @renderer = renderer
     @scene = scene
     
     @bullets = []
     @renderer.window.on_key_typed do |key|
       case key
-      when GLFW_KEY_SPACE
+      when GLFW_MOUSE_BUTTON_RIGHT
         bullet = Bullet.new(@mesh.position.x, @mesh.position.y, @mesh.position.z)
         @scene.add(bullet.mesh)
         @bullets << bullet
@@ -32,25 +24,17 @@ class Player
     end
     
     @score = score
-    @hitpoint = hitpoint
+    # @hitpoint = hitpoint
 
-  =begin
-    Mittsu::Sprite.new(@mesh2).tap do |sprite|
-      sprite.scale.set(128, 128, 1.0)
-      sprite.position.set((screen_width / 2.0) + 64 + dx * index, (screen_height / 2.0) + 64, 0.0)
-      @scene.add(sprite)
-      @mesh2 << sprite
-    end
-  =end
   end
 
   def update
-    @mesh.position.y += 0.1 if @renderer.window.key_down?(GLFW_KEY_UP)
-    @mesh.position.y -= 0.1 if @renderer.window.key_down?(GLFW_KEY_DOWN)
-    @mesh.position.x -= 0.1 if @renderer.window.key_down?(GLFW_KEY_LEFT)
-    @mesh.position.x += 0.1 if @renderer.window.key_down?(GLFW_KEY_RIGHT)
-    @mesh.position.z += 0.1 if @renderer.window.key_down?(GLFW_KEY_Z)
-    @mesh.position.z -= 0.1 if @renderer.window.key_down?(GLFW_KEY_A)
+    @mesh.position.y += 0.1 if @renderer.window.key_down?(GLFW_KEY_W)
+    @mesh.position.y -= 0.1 if @renderer.window.key_down?(GLFW_KEY_S)
+    @mesh.position.x -= 0.1 if @renderer.window.key_down?(GLFW_KEY_D)
+    @mesh.position.x += 0.1 if @renderer.window.key_down?(GLFW_KEY_A)
+    @mesh.position.z += 0.1 if @renderer.window.key_down?(GLFW_KEY_E)
+    @mesh.position.z -= 0.1 if @renderer.window.key_down?(GLFW_KEY_Q)
 
     @bullets.each do |bullet|
       bullet.update
@@ -87,15 +71,24 @@ class Player
       end
     end
   end
-
+=begin
   def check3(enemy_bullets)
     enemy_bullets.each do |enemy_bullet|
       if @mesh.position.distance_to(enemy_bullet.mesh.position) <= 0.1 + 0.5
-        @hitpoint -= 10
+        @hitpoint.hitpoints -= 10
         @score.points -= 100
       else
         # 
       end
     end
   end
+
+  def Gameover(hitpoints)
+    if @hitpoint.hitpoints == 0
+      puts "Game Over"
+    else
+      #
+    end
+  end
+=end
 end
