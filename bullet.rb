@@ -15,7 +15,7 @@ class Bullet
     )
     @mesh2.position.set(@x, @y, @z)
 
-    @speedZ = 0.5
+    @speedZ = 1.0
   end
 
   def update
@@ -23,7 +23,7 @@ class Bullet
   end
 
   def update2
-    @mesh2.position.z += 0.5
+    @mesh2.position.z += 1.0
   end
 end
 

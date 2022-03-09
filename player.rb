@@ -81,6 +81,7 @@ class Player
     end
   end
 
+  # HPの処理 #
   def update_hitpoints
     if @hitpoint == 20
       game.mesh.material.color.set(0xff0000)
