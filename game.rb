@@ -29,8 +29,10 @@ class Game
     @camera.position.z = 10.0
     @widget_camera.position.z = 10.0
     @score = Score.new(screen_width, screen_height)
+    @time_count = 0
 
     @enemies = []
+    @bullets = []
     5.times do
       @enemy = Enemy.new((rand(1..5) - 3).to_f, (rand(1..5) -3).to_f, 0.0, @renderer, @scene)
       @scene.add(@enemy.mesh)
@@ -40,27 +42,26 @@ class Game
     @player = Player.new(0.0, 0.0, 10.0, @renderer, @scene, @score)
     @scene.add(@player.mesh)
     @player.mesh.add(@camera)
-    @time_count = 0
   end
 
   def play
     @player.update
+    @time_count += 1
+    puts "#{@time_count}"
 
     @enemies.each do |enemy|
-      enemy.bullets.each do |bullet|
-        if @time_count == 60
-          enemy.fire
-          bullet.update2
-        else
+      if @time_count == 60
+        enemy.fire
+        bullet.update2
+      else
           #
-        end
       end
 
-        if @time_count == 120
-          enemy.update
-        else
-          #
-        end
+      if @time_count == 120
+        enemy.update
+      else
+        #
+      end
     end
 
     if @time_count > 255

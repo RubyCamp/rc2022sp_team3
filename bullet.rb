@@ -7,7 +7,7 @@ class Bullet
       Mittsu::CircleGeometry.new(1.0, 32, 32),
       Mittsu::MeshBasicMaterial.new(color: 0x00ff00)
     )
-    @mesh.position.set(x, y, z)
+    @mesh.position.set(@x, @y, @z)
 
     @mesh2 = Mittsu::Mesh.new(
       Mittsu::SphereGeometry.new(0.5, 32, 32),
@@ -25,4 +25,7 @@ class Bullet
   def update2
     @mesh2.position.z += 0.5
   end
-  end
+end
+
+
+
