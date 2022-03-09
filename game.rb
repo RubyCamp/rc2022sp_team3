@@ -7,6 +7,8 @@ class Game
     @renderer = renderer
     renderer.auto_clear = false
 
+    # widget_cameraの動作が良くわからん #
+
     @widget_scene = Mittsu::Scene.new
     @widget_camera = Mittsu::OrthographicCamera.new(75.0, ASPECT, 0.1, 1000.0)
     @scene = Mittsu::Scene.new
@@ -24,7 +26,6 @@ class Game
     # directionalLight.position.set(1, 1, 1)
     # @widget_scene.add(directionalLight)
 
-    # 背景を描画 #
     @camera.position.z = 10.0
     @widget_camera.position.z = 10.0
     @score = Score.new(screen_width, screen_height)
@@ -49,13 +50,17 @@ class Game
     puts "#{@time_count}"
 
     @enemies.each do |enemy|
+      enemy.bullets.each do |bullet|
+        bullet.update2
+      end
+    end
+
+    @enemies.each do |enemy|
       if @time_count == 60
         enemy.fire
-        enemy.bullets.each do |bullet|
-          bullet.update2
-        end
-      elsif @time_count == 120
         enemy.update
+      elsif @time_count == 120
+        enemy.update2
       else
         #
       end
@@ -65,7 +70,7 @@ class Game
       @time_count = 0
     end
 
-    @player.check(@enemies)
+    @player.check(@enemies) # 動作済み #
     @player.check2(@enemies)
     @player.check3(@bullets) 
 
