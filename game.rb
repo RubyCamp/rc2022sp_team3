@@ -13,12 +13,14 @@ class Game
     @widget_camera = Mittsu::OrthographicCamera.new(75.0, ASPECT, 0.1, 1000.0)
     @scene = Mittsu::Scene.new
     @camera = Mittsu::PerspectiveCamera.new(75.0, ASPECT, 0.1, 1000.0)
+    @hitpoint = 100
 
     @mesh = Mittsu::Mesh.new(
-      Mittsu::BoxGeometry.new(2.0, 100, 0.0),
+      Mittsu::PlaneGeometry.new(2.0, @hitpoint),
       Mittsu::MeshBasicMaterial.new(color: 0xffff00)
     )
-    @mesh.position.set(-128, -128, 1)
+    @mesh.scale.set(1,1,1)
+    @mesh.position.set(-256, -256, 10)
     @widget_scene.add(@mesh)
     # @mesh.add(@widget_scene)
 
@@ -30,7 +32,7 @@ class Game
     @widget_camera.position.z = 10.0
     @score = Score.new(screen_width, screen_height)
     @time_count = 0
-
+    
     @enemies = []
     @bullets = []
     5.times do
@@ -39,7 +41,7 @@ class Game
       @enemies << @enemy
     end
     
-    @player = Player.new(0.0, 0.0, 10.0, @renderer, @scene, @score)
+    @player = Player.new(0.0, 0.0, 10.0, @renderer, @scene, @score, @hitpoint)
     @scene.add(@player.mesh)
     @player.mesh.add(@camera)
   end
@@ -47,7 +49,7 @@ class Game
   def play
     @player.update
     @time_count += 1
-    puts "#{@time_count}"
+    puts "#{@time_count}, (#{@player.mesh.position.x}, #{@player.mesh.position.y}, #{@player.mesh.position.z}), #{@hitpoint}"
 
     @enemies.each do |enemy|
       enemy.bullets.each do |bullet|
@@ -71,8 +73,8 @@ class Game
     end
 
     @player.check(@enemies) # 動作済み #
-    @player.check2(@enemies)
-    @player.check3(@bullets) 
+    @player.check2
+    @player.check3 
 
     @score.update_points
     @player.update_hitpoints #
