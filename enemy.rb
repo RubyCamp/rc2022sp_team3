@@ -23,6 +23,6 @@ class Enemy
   end
 
   def update#移動
-    @mesh.position.x += 1
+    @mesh.position.z += 0.5
   end
 end
