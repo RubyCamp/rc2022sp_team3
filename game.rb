@@ -8,10 +8,9 @@ class Game
     renderer.auto_clear = false
 
     @widget_scene = Mittsu::Scene.new
-    @widget_camera = Mittsu::PerspectiveCamera.new(75.0, ASPECT, 0.1, 1000.0)
+    @widget_camera = Mittsu::OrthographicCamera.new(75.0, ASPECT, 0.1, 1000.0)
     @scene = Mittsu::Scene.new
     @camera = Mittsu::PerspectiveCamera.new(75.0, ASPECT, 0.1, 1000.0)
-    
 
     @mesh = Mittsu::Mesh.new(
       Mittsu::BoxGeometry.new(2.0, 100, 0.0),
@@ -52,12 +51,10 @@ class Game
     @enemies.each do |enemy|
       if @time_count == 60
         enemy.fire
-        bullet.update2
-      else
-          #
-      end
-
-      if @time_count == 120
+        enemy.bullets.each do |bullet|
+          bullet.update2
+        end
+      elsif @time_count == 120
         enemy.update
       else
         #
