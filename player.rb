@@ -53,7 +53,7 @@ class Player
           @scene.remove(bullet.mesh)
           @bullets.delete(bullet)
           
-          @score.points += 1
+          @score.points += 100
         else
           # 衝突してない
         end
