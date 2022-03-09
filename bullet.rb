@@ -9,7 +9,7 @@ class Bullet
     @mesh.position.set(x, y, z)
 
     @mesh2 = Mittsu::Mesh.new(
-      Mittsu::SphereGeometry.new(1.0, 1.0, 1.0),
+      Mittsu::SphereGeometry.new(0.5, 32, 32),
       Mittsu::MeshBasicMaterial.new(color: 0xff0000)
     )
     @mesh2.position.set(x, y, z)
@@ -22,6 +22,6 @@ class Bullet
   end
 
   def update2
-    @mesh2.position.z += @speedZ
+    @mesh2.position.z += 0.5
   end
 end

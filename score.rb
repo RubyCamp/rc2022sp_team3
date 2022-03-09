@@ -24,7 +24,7 @@ class Score
       geometry = Mittsu::BoxGeometry.new(2.0, @hitpoint, 0.0)
       materia = Mittsu::SpriteMaterial.new(geometry: geometry, color: 0xffff00)
       Mittsu::Sprite.new(materia).tap do |sprite2|
-        sprite2.scale.set(128, -256, 0)
+        sprite2.scale.set(128, -256, 1.0)
         sprite2.position.set((screen_width / 2.0) + 64 + dx * 2, (screen_height / 2.0) + 64, 0.0)
         @scene.add(sprite2)
       end  
@@ -40,8 +40,13 @@ class Score
     end
 
      # 体力の処理 #
-    # def update_hitpoints
-    # end  
+=begin
+    def update_hitpoints
+      geometry = Mittsu::BoxGeometry.new(2.0, @hitpoint, 0.0)
+      sprite2.material.set_viewport(geometry: geometry)
+      material = Mittsu::SpriteMaterial.new(geometry: geometry)
+    end
+=end
 
   end
   

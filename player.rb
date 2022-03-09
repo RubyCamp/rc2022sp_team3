@@ -64,7 +64,7 @@ class Player
   # enemyとplayerの接触処理 #
   def check2(enemies)
     enemies.each do |enemy|
-      if @mesh.position.distance_to(enemy.mesh.position) <= 0.1 + 0.5
+      if enemy.mesh.position.distance_to(@mesh.position) <= 0.1 + 0.5
         @hitpoint.hitpoints -= 10
         @scene.remove(enemy.mesh)
         @enemies.delete(enemy)

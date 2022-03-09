@@ -31,7 +31,7 @@ class Game
 
     @enemies.each do |enemy|
       enemy.fire
-      enemy.update
+      #enemy.update
     end
 
     @player.check(@enemies)
@@ -39,7 +39,7 @@ class Game
     # @player.check3(@enemy_bullets) #
 
     @score.update_points
-    # @score.update_hitpoints #
+    @score.update_hitpoints 
 
     @renderer.clear
     @renderer.render(@scene, @camera)

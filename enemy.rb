@@ -10,30 +10,36 @@ class Enemy
     )
     @mesh.position.set(x, y, z)
 
+    @x, @y, @z = x, y, z
+
     @scene,@renderer = scene,renderer
 
+    @bullets = []
     @hitpoint = 3
   end
 
-
+=begin
   def hit#プレイヤーの弾が当たった時 -> check関数で処理済み
     @hitpoint -= 1
     @bullets =[]
     @boxs = []
   end
+=end
 
   def fire#敵が弾を発射
-    @bullet = Bullet.new(@x,@y,@z)
-    @scene.add(@bullet.mesh2)
-    @bullets << @bullet
+    bullet = Bullet.new(@x,@y,@z)
+    @scene.add(bullet.mesh2)
+    @bullets << bullet
     bullet.update2
   end
 
+=begin
   def dead#消滅時処理 -> check関数で処理済み
-    @box = Box.new(@x,@y,@z,@scene)
-    @scene.add(@box.mesh)
-    @boxs << @box
+    box = Box.new(@x,@y,@z,@scene)
+    @scene.add(box.mesh)
+    @boxs << box
   end
+=end
 
   def update#移動
     mesh.position.x += (rand(0.1..0.5) + 0.1).to_f
