@@ -19,15 +19,6 @@ class Score
           @digits << sprite
         end
       end
-      
-      # 体力ゲージを右下に描画#
-      geometry = Mittsu::BoxGeometry.new(2.0, @hitpoint, 0.0)
-      materia = Mittsu::SpriteMaterial.new(geometry: geometry, color: 0xffff00)
-      Mittsu::Sprite.new(materia).tap do |sprite2|
-        sprite2.scale.set(128, -256, 0)
-        sprite2.position.set((screen_width / 2.0) + 64 + dx * 2, (screen_height / 2.0) + 64, 0.0)
-        @scene.add(sprite2)
-      end  
     end
   
     def update_points

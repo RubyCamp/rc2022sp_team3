@@ -16,6 +16,7 @@ class Enemy
     @scene.add(@mesh)
   end
 
+
   def fire#敵が弾を発射
     @bullet = Bullet.new(@x,@y,@z)
     @scene.add(@bullet.mesh2)
