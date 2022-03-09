@@ -15,7 +15,7 @@ class Player
     
     @bullets = []
     @enemies = []
-    @renderer.window.on_mouse_button_pressed do |key|
+    @renderer.window.on_key_released do |key|
       case key
       when GLFW_KEY_SPACE
         bullet = Bullet.new(@mesh.position.x, @mesh.position.y, @mesh.position.z)
@@ -26,7 +26,6 @@ class Player
     
     @score = score
     @hitpoint = 100
-    @time_count = 0
 
   end
 
@@ -37,7 +36,6 @@ class Player
     @mesh.position.x += 0.1 if @renderer.window.key_down?(GLFW_KEY_D)
     @mesh.position.z += 0.1 if @renderer.window.key_down?(GLFW_KEY_E)
     @mesh.position.z -= 0.1 if @renderer.window.key_down?(GLFW_KEY_Q)
-    @time_count += 1
 
     @bullets.each do |bullet|
       bullet.update
