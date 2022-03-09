@@ -24,20 +24,10 @@ class Enemy
 
   def hit # enemyがplayerの弾に当たった時の処理
     @scene.remove(@mesh)
-    @bullets.each do |bullet|
-      @scene.remove(bullet.mesh)
-      @bullets.delete(bullet)
-    end
   end
-
-=begin
-  def dead # enemyの消滅処理
-      end
-  end
-end
-=end
 
   def update#移動
-    @mesh.position.z += 0.3
+    @z+=1
+    @mesh.position.set(@x, @y, @z)
   end
 end
