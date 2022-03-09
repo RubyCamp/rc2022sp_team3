@@ -2,6 +2,7 @@ class Bullet
   attr_accessor :mesh,:mesh2
 
   def initialize(x, y, z)
+    @x,@y,@z = x,y,z
     @mesh = Mittsu::Mesh.new(
       Mittsu::CircleGeometry.new(1.0, 32, 32),
       Mittsu::MeshBasicMaterial.new(color: 0x00ff00)
@@ -12,7 +13,7 @@ class Bullet
       Mittsu::SphereGeometry.new(1.0, 1.0, 1.0),
       Mittsu::MeshBasicMaterial.new(color: 0xff0000)
     )
-    @mesh2.position.set(x, y, z)
+    @mesh2.position.set(@x, @y, @z)
 
     @speedZ = 0.5
   end
@@ -24,4 +25,4 @@ class Bullet
   def update2
     @mesh2.position.z += @speedZ
   end
-end
+  end
