@@ -1,5 +1,6 @@
 require 'mittsu'
 require_relative 'game'
+Dir.glob("directors/*.rb") {|path| require_relative path }
 
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 768
