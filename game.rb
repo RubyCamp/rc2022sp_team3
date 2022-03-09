@@ -67,8 +67,9 @@ class Game
 
     @player.check(@enemies)
     @player.check2(@enemies)
-    @player.check3(@bullets) 
-
+    @enemies.each do |enemy|
+    @player.check3(enemy.bullets) 
+    end
     @score.update_points
     @player.update_hitpoints #
 
