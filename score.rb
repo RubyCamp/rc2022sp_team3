@@ -18,7 +18,6 @@ class Score
           @digits << sprite
         end
       end
-      
     end
   
     def update_points

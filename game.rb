@@ -32,9 +32,9 @@ class Game
 
     @enemies = []
     5.times do
-      enemy = Enemy.new((rand(1..5) - 3).to_f, (rand(1..5) -3).to_f, 0.0, @renderer, @scene)
-      @scene.add(enemy.mesh)
-      @enemies << enemy
+      @enemy = Enemy.new((rand(1..5) - 3).to_f, (rand(1..5) -3).to_f, 0.0, @renderer, @scene)
+      @scene.add(@enemy.mesh)
+      @enemies << @enemy
     end
     
     @player = Player.new(0.0, 0.0, 10.0, @renderer, @scene, @score)
