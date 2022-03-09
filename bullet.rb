@@ -2,7 +2,7 @@ class Bullet
   attr_accessor :mesh,:mesh2
 
   def initialize(x, y, z)
-    @x,@y,@z = x,y,z
+    @x,@y,@z=x,y,z
     @mesh = Mittsu::Mesh.new(
       Mittsu::CircleGeometry.new(1.0, 32, 32),
       Mittsu::MeshBasicMaterial.new(color: 0x00ff00)
