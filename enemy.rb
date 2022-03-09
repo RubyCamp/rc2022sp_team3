@@ -1,4 +1,4 @@
-require_relative 'bullet.rb' #敵の弾はbulletのmesh2を使用
+require_relative 'bullet' #敵の弾はbulletのmesh2を使用
 
 class Enemy
   attr_accessor :mesh,:hitpoint,:bullets
@@ -8,13 +8,14 @@ class Enemy
     @scene,@renderer = scene,renderer
     @hitpoint = 3
     @bullets =[]
-    @dflg = 0
 
     @mesh = Mittsu::Mesh.new(#メッシュにまとめて代入
       Mittsu::BoxGeometry.new(1, 1, 1),
       Mittsu::MeshBasicMaterial.new(color: 0x0000ff)
     )
+
     @mesh.position.set(@x, @y, @z)
+    
   end
 
   def fire#敵が弾を発射
@@ -42,6 +43,7 @@ class Enemy
     end
 
     @box = Box.new(@x,@y,@z)
+
     @scene.add(@box.mesh)
     @dflg = -1
   end
@@ -64,7 +66,7 @@ class Enemy
   end
 end
 
-class Box#アイテムbox
+class Box#アイテムbox -> 今回は使用しないかも...
   attr_accessor :mesh
   def initialize(x,y,z)
     @x,@y,@z = x,y,z
@@ -74,4 +76,5 @@ class Box#アイテムbox
     )
     @mesh.position.set(@x,@y,@z)
   end
+
 end

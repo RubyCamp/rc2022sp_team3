@@ -9,6 +9,8 @@ class Game
 
     @scene = Mittsu::Scene.new
     @camera = Mittsu::PerspectiveCamera.new(75.0, ASPECT, 0.1, 1000.0)
+
+    # 背景を描画 #
     # camera.position.z = 10.0
     @score = Score.new(screen_width, screen_height)
 
@@ -28,12 +30,16 @@ class Game
     @player.update
 
     @enemies.each do |enemy|
+      enemy.fire
       enemy.update
     end
 
     @player.check(@enemies)
+    @player.check2(@enemies)
+    # @player.check3(@enemy_bullets) #
 
     @score.update_points
+    # @score.update_hitpoints #
 
     @renderer.clear
     @renderer.render(@scene, @camera)
