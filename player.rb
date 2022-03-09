@@ -25,7 +25,7 @@ class Player
     end
     
     @score = score
-    # @hitpoint = hitpoint
+    @hitpoint = hitpoint
 
   end
 
@@ -53,7 +53,7 @@ class Player
           @scene.remove(bullet.mesh)
           @bullets.delete(bullet)
           
-          @score.points += 1
+          @score.points += 100
         else
           # 衝突してない
         end
@@ -77,10 +77,12 @@ class Player
 
   # enemyの弾とplayerの接触処理 #
 =begin
-  def check3(enemy_bullets)
-    enemy_bullets.each do |enemy_bullet|
-      if @mesh.position.distance_to(enemy_bullet.mesh.position) <= 0.1 + 0.5
+  def check3(bullets)
+    @bullets.each do |bullet|
+      if @mesh.position.distance_to(bullet.mesh2.position) <= 0.1 + 0.5
         @hitpoint.hitpoints -= 10
+        @scene.remove(bullet.mesh2)
+        @bullets.delete(bullet)
         @score.points -= 100
       else
         # 
@@ -88,11 +90,14 @@ class Player
     end
   end
 
-  def Gameover(hitpoints)
-    if @hitpoint.hitpoints == 0
-      puts "Game Over"
+  def update_hitpoints
+    if @hitpoints.hitpoints == 20
+      game.mesh.material.color.set(0xff0000)
+    elsif @hitpoints.hitpoints == 0
+      puts "Game over"
+      return 0
     else
-      #
+      return
     end
   end
 =end

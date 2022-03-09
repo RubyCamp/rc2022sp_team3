@@ -5,7 +5,6 @@ class Score
       @camera = Mittsu::OrthographicCamera.new(-screen_width / 2.0, screen_width / 2.0, screen_height / 2.0, -screen_height / 2.0, 0.0, 1.0)
       @scene = Mittsu::Scene.new
       @points = 0
-      @hitpoint = 100
       @digits = []
       dx = 64
   
@@ -20,14 +19,6 @@ class Score
         end
       end
       
-      # 体力ゲージを右下に描画#
-      geometry = Mittsu::BoxGeometry.new(2.0, @hitpoint, 0.0)
-      materia = Mittsu::SpriteMaterial.new(geometry: geometry, color: 0xffff00)
-      Mittsu::Sprite.new(materia).tap do |sprite2|
-        sprite2.scale.set(128, -256, 1.0)
-        sprite2.position.set((screen_width / 2.0) + 64 + dx * 2, (screen_height / 2.0) + 64, 0.0)
-        @scene.add(sprite2)
-      end  
     end
   
     def update_points
@@ -38,15 +29,6 @@ class Score
         material = Mittsu::SpriteMaterial.new(map: map)
       end
     end
-
-     # 体力の処理 #
-=begin
-    def update_hitpoints
-      geometry = Mittsu::BoxGeometry.new(2.0, @hitpoint, 0.0)
-      sprite2.material.set_viewport(geometry: geometry)
-      material = Mittsu::SpriteMaterial.new(geometry: geometry)
-    end
-=end
 
   end
   
