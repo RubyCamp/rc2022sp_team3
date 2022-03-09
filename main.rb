@@ -30,6 +30,8 @@ scene.add(skybox)
 
 game = Game.new(renderer, SCREEN_WIDTH, SCREEN_HEIGHT)
 
+# オープニング画面とゲームクリア画面の追加(画面遷移込み) #
+# (出来れば)"Retry" "Exit"ボタン?を追加 #
 renderer.window.run do
   game.play
   renderer.render(scene, camera)

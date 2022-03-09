@@ -7,26 +7,21 @@ class Game
     @renderer = renderer
     renderer.auto_clear = false
 
-    # widget_cameraの動作が良くわからん #
+    # 体力ゲージ描画を要微調整 #
 
     @widget_scene = Mittsu::Scene.new
-    @widget_camera = Mittsu::OrthographicCamera.new(75.0, ASPECT, 0.1, 1000.0)
+    @widget_camera = Mittsu::OrthographicCamera.new(screen_width / 2.0, -screen_width / 2.0, screen_height / 2.0, -screen_height / 2.0, 0.0, 1.0)
     @scene = Mittsu::Scene.new
     @camera = Mittsu::PerspectiveCamera.new(75.0, ASPECT, 0.1, 1000.0)
     @hitpoint = 100
 
     @mesh = Mittsu::Mesh.new(
-      Mittsu::PlaneGeometry.new(2.0, @hitpoint),
+      Mittsu::BoxGeometry.new(2.0, @hitpoint, 0),
       Mittsu::MeshBasicMaterial.new(color: 0xffff00)
     )
-    @mesh.scale.set(1,1,1)
+    @mesh.scale.set(2, 2, 2)
     @mesh.position.set(-256, -256, 10)
     @widget_scene.add(@mesh)
-    # @mesh.add(@widget_scene)
-
-    # directionalLight = Mittsu::DirectionalLight.new(0xffffff)
-    # directionalLight.position.set(1, 1, 1)
-    # @widget_scene.add(directionalLight)
 
     @camera.position.z = 10.0
     @widget_camera.position.z = 10.0
@@ -57,6 +52,8 @@ class Game
       end
     end
 
+    # 消滅したenemyからは弾が出ないようにする #
+    # よりゲーム性を上げるように処理を増やす #
     @enemies.each do |enemy|
       if @time_count == 60
         enemy.fire
@@ -76,8 +73,8 @@ class Game
     @player.check2
     @player.check3 
 
-    @score.update_points
-    @player.update_hitpoints #
+    @score.update_points # 動作済み #
+    @player.update_hitpoints 
 
     @renderer.clear
     @renderer.render(@widget_scene, @widget_camera)
