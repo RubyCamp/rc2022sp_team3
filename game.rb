@@ -47,15 +47,18 @@ class Game
 
     @enemies.each do |enemy|
       enemy.fire
-      #enemy.update
+      enemy.update
+      enemy.bullets.each do |bullet|
+        bullet.update2
+      end
     end
 
     @player.check(@enemies)
     @player.check2(@enemies)
-    # @player.check3(@bullets) 
+    @player.check3(@bullets) 
 
     @score.update_points
-    # @score.update_hitpoints #
+    @score.update_hitpoints #
 
     @renderer.clear
     @renderer.render(@widget_scene, @widget_camera)

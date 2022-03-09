@@ -16,13 +16,14 @@ class Enemy
     @scene.add(@mesh)
   end
 
+
   def fire#敵が弾を発射
-    bullet = Bullet.new(@mesh.position.x, @mesh.position.y, @mesh.position.z)
+    bullet = Bullet.new(@x,@y,@z)
     @scene.add(bullet.mesh2)
     @bullets << bullet
   end
 
   def update#移動
-    @mesh.position.x += 1
+    @mesh.position.z += 0.3
   end
 end
