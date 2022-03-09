@@ -27,7 +27,11 @@ class Enemy
   end
 
   def update#移動
-    @z+=1
+    @z += 1
     @mesh.position.set(@x, @y, @z)
+  end
+
+  def update2 
+    @mesh.position.x += 3
   end
 end
