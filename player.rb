@@ -26,6 +26,7 @@ class Player
     
     @score = score
     @hitpoint = 100
+    @time_count = 0
 
   end
 
@@ -36,6 +37,7 @@ class Player
     @mesh.position.x += 0.1 if @renderer.window.key_down?(GLFW_KEY_D)
     @mesh.position.z += 0.1 if @renderer.window.key_down?(GLFW_KEY_E)
     @mesh.position.z -= 0.1 if @renderer.window.key_down?(GLFW_KEY_Q)
+    @time_count += 1
 
     @bullets.each do |bullet|
       bullet.update
@@ -43,16 +45,10 @@ class Player
   end 
 
   def check(enemies)
-    @enemies.each do |enemy|
+    enemies.each do |enemy|
       @bullets.each do |bullet|
         if bullet.mesh.position.distance_to(enemy.mesh.position) <= 0.1 + 0.5
-          enemy.mesh.material.color.set(0xff0000)
-          @scene.remove(enemy.mesh)
-          @enemies.delete(enemy)
-          sleep(0.1)
-          @scene.remove(bullet.mesh)
-          @bullets.delete(bullet)
-          
+          enemy.hit
           @score.points += 100
         else
           # 衝突してない
@@ -63,11 +59,9 @@ class Player
   
   # enemyとplayerの接触処理 #
   def check2(enemies)
-    @enemies.each do |enemy|
+    enemies.each do |enemy|
       if enemy.mesh.position.distance_to(@mesh.position) <= 0.1 + 0.5
-        @hitpoint -= 10
-        @scene.remove(enemy.mesh)
-        @enemies.delete(enemy)
+        @hitpoint = 0
         @score.points -= 100
       else
         # 
@@ -77,7 +71,7 @@ class Player
 
   # enemyの弾とplayerの接触処理 #
   def check3(bullets)
-    @bullets.each do |bullet|
+    bullets.each do |bullet|
       if @mesh.position.distance_to(bullet.mesh2.position) <= 0.1 + 0.5
         @hitpoint -= 10
         @scene.remove(bullet.mesh2)

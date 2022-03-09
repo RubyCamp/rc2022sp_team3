@@ -40,17 +40,31 @@ class Game
     @player = Player.new(0.0, 0.0, 10.0, @renderer, @scene, @score)
     @scene.add(@player.mesh)
     @player.mesh.add(@camera)
+    @time_count = 0
   end
 
   def play
     @player.update
 
     @enemies.each do |enemy|
-      enemy.fire
-      enemy.update
       enemy.bullets.each do |bullet|
-        bullet.update2
+        if @time_count == 60
+          enemy.fire
+          bullet.update2
+        else
+          #
+        end
       end
+
+        if @time_count == 120
+          enemy.update
+        else
+          #
+        end
+    end
+
+    if @time_count > 255
+      @time_count = 0
     end
 
     @player.check(@enemies)
@@ -58,7 +72,7 @@ class Game
     @player.check3(@bullets) 
 
     @score.update_points
-    @score.update_hitpoints #
+    @player.update_hitpoints #
 
     @renderer.clear
     @renderer.render(@widget_scene, @widget_camera)
