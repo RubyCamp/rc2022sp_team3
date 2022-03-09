@@ -49,15 +49,15 @@ class Game
     puts "#{@time_count}"
 
     @enemies.each do |enemy|
-      if @time_count == 60
-        enemy.fire
         enemy.bullets.each do |bullet|
           bullet.update2
         end
-      elsif @time_count == 120
+    end
+
+    if @time_count == 60
+      @enemies.each do |enemy|
+        enemy.fire
         enemy.update
-      else
-        #
       end
     end
 
