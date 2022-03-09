@@ -22,12 +22,14 @@ class Enemy
     @boxs = []
   end
 
+=begin
   def fire#敵が弾を発射
     @bullet = Bullet.new(@x,@y,@z)
     @scene.add(@bullet.mesh2)
     @bullets << @bullet
     bullet.update2
   end
+=end
 
   def dead#消滅時処理 -> check関数で処理済み
     @box = Box.new(@x,@y,@z,@scene)
