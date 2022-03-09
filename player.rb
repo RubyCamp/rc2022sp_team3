@@ -43,7 +43,7 @@ class Player
   end 
 
   def check(enemies)
-    enemies.each do |enemy|
+    @enemies.each do |enemy|
       @bullets.each do |bullet|
         if bullet.mesh.position.distance_to(enemy.mesh.position) <= 0.1 + 0.5
           enemy.mesh.material.color.set(0xff0000)
@@ -62,8 +62,9 @@ class Player
   end
   
   # enemyとplayerの接触処理 #
+=begin
   def check2(enemies)
-    enemies.each do |enemy|
+    @enemies.each do |enemy|
       if enemy.mesh.position.distance_to(@mesh.position) <= 0.1 + 0.5
         @hitpoint.hitpoints -= 10
         @scene.remove(enemy.mesh)
@@ -76,7 +77,6 @@ class Player
   end
 
   # enemyの弾とplayerの接触処理 #
-=begin
   def check3(bullets)
     @bullets.each do |bullet|
       if @mesh.position.distance_to(bullet.mesh2.position) <= 0.1 + 0.5
