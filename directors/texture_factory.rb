@@ -24,7 +24,7 @@ class TextureFactory
 
 	# タイトル画面の説明用文字列テクスチャを生成
 	def self.create_title_description
-		Mittsu::ImageUtils.load_texture("images/title-description.png")
+		Mittsu::ImageUtils.load_texture("rubig_ruby_start2.png")
 	end
 
 	# エンディング画面の説明用文字列テクスチャを生成
