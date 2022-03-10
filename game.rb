@@ -23,7 +23,7 @@ class Game
     @mesh.position.set(-400, -256, 10)
     @widget_scene.add(@mesh)
 
-    @camera.position.z = 10.0
+    #@camera.position.z = 10.0
     @widget_camera.position.z = 10.0
     @score = Score.new(screen_width, screen_height)
     @time_count = 0
