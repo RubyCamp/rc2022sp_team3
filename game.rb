@@ -57,9 +57,9 @@ class Game
     @enemies.each do |enemy|
       if @time_count % 20 == 0
         enemy.fire
-        enemy.update(1,0,0)
+        enemy.update
       elsif @time_count == 120
-        enemy.update(0,1,0)
+       
       else
         #
       end
