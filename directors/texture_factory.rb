@@ -24,11 +24,11 @@ class TextureFactory
 
 	# タイトル画面の説明用文字列テクスチャを生成
 	def self.create_title_description
-		Mittsu::ImageUtils.load_texture("images/title_description.png")
+		Mittsu::ImageUtils.load_texture("images/title-description.png")
 	end
 
 	# エンディング画面の説明用文字列テクスチャを生成
 	def self.create_ending_description
-		Mittsu::ImageUtils.load_texture("images/ending_description.png")
+		Mittsu::ImageUtils.load_texture("images/ending-description.png")
 	end
 end
