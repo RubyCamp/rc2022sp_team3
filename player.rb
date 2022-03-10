@@ -49,6 +49,7 @@ class Player
         if bullet.mesh.position.distance_to(enemy.mesh.position) <= 0.1 + 0.5
           enemy.hit
           @score.points += 100
+  
         else
           #
         end
