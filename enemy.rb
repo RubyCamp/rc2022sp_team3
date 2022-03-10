@@ -23,12 +23,12 @@ class Enemy
     )
     @mesh2.position.set(@x, @y, @z)
 
-    # z軸-50のところにRuby画像をenemy.mesh3として描画 #
-    geometry = Mittsu::SphereGeometry.new(1.0, 32, 16)
-    texture = Mittsu::ImageUtils.load_texture(File.join File.dirname(__FILE__), 'images',"rubig-ruby.png")
-    material = Mittsu::MeshBasicMaterial.new(map: texture)
-    @ruby = Mittsu::Mesh.new(geometry, material)
-    @ruby.position.set(@x, @y, @z)
+    # # z軸-50のところにRuby画像をenemy.mesh3として描画 #
+    # geometry = Mittsu::SphereGeometry.new(1.0, 32, 16)
+    # texture = Mittsu::ImageUtils.load_texture(File.join File.dirname(__FILE__), 'images',"rubig-ruby.png")
+    # material = Mittsu::MeshBasicMaterial.new(map: texture)
+    # @ruby = Mittsu::Mesh.new(geometry, material)
+    # @ruby.position.set(@x, @y, @z)
 
     @scene.add(@mesh)
     #@scene.add(@mesh2)
@@ -46,13 +46,18 @@ class Enemy
 
   def hit # enemyがplayerの弾に当たった時の処理
     @scene.remove(@mesh)
+    @bullets.each do |bullet|
+      @scene.remove(bullet.mesh2)
+    end
+    @bullets.delete_if do |bullet|
+      1
+    end
     @flag = 0
   end
 
   # enemy.mesh3に関しては別にhit, dead関数を作成 #
 
-  # x, y, z軸全方向に対応したupdate関数を作成 #
-  def update#(x,y,z)
+  def update#ランダム移動
     dx = rand(3)
 		dy = rand(3)
 		case dx

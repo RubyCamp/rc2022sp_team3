@@ -57,39 +57,44 @@ module Directors
 			@time_count += 1
 		
 			puts "#{@time_count}, (#{@player.mesh.position.x}, #{@player.mesh.position.y}, #{@player.mesh.position.z}), #{@player.hitpoint} ,#{@score.points}"
-		
+
+			#敵弾の移動
 			@enemies.each do |enemy|
-			  enemy.bullets.each do |bullet|
-				bullet.update2
-			  end
+				enemy.bullets.each do |bullet|
+					bullet.update2
+				end
 			end
+			#flagが0のenemyを削除#
+			@enemies.delete_if  do |enemy|
+				enemy.flag == 0
+			end
+			#5以上の敵を倒していたら敵を追加
+			if @player.killcount >= 5
+				5.times do |i|
+					@enemy = Enemy.new(i, (rand(1..5) -3).to_f, 0.0, @renderer, @scene)
+					@scene.add(@enemy.mesh)
+					@enemies << @enemy
+				end
+				@player.killcount = 0
+			end
+	  
+					 
 		
-			# 消滅したenemyからは弾が出ないようにする #
 			# よりゲーム性を上げるように処理を増やす #
 			@enemies.each do |enemy|
 			  if @time_count % 20 == 0
 				enemy.fire
 				enemy.update
 			  elsif @time_count == 120
-			   
-			  else
-				#
 			  end
 			end
-		
 			if @time_count > 200
 			  @time_count = 0
 			end
-
-			#flagが0のenemyを削除#
-			@enemies.delete_if  do |enemy|
-				enemy.flag == 0
-			end
-
 		
 			@player.check(@enemies) # 動作済み #
-			@player.check2(@enemies)
-			@enemies.each do |enemy|
+			@player.check2(@enemies)# 動作済み #
+			@enemies.each do |enemy|# 動作済み #
 			  @player.check3(enemy.bullets) 
 			end
 			@score.update_points

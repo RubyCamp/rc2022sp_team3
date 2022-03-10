@@ -1,8 +1,8 @@
 require_relative 'bullet'
 
 class Player
-  attr_accessor :mesh
-  attr_reader :killcount,:hitpoint
+  attr_accessor :mesh,:killcount
+  attr_reader :hitpoint
   
   def initialize(x, y, z, renderer, scene, score, hitpoint)
     @mesh = Mittsu::Mesh.new(
@@ -49,7 +49,7 @@ class Player
         if bullet.mesh.position.distance_to(enemy.mesh.position) <= 0.1 + 0.5
           enemy.hit
           @score.points += 100
-  
+          @killcount+=1
         else
           #
         end
@@ -86,7 +86,7 @@ class Player
   # HPの処理 #
   def update_hitpoints
     if @hitpoint == 20
-      game.mesh.material.color.set(0xff0000)
+      #game.mesh.material.color.set(0xff0000)
       puts "hp danger!!!"
     elsif @hitpoint == 0
       puts "Game over"
