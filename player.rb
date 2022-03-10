@@ -1,4 +1,6 @@
 require_relative 'bullet'
+Dir.glob("directors/game_director.rb") {|path| require_relative path }
+# require_relative 'directors/game_director'
 
 class Player
   attr_accessor :mesh
@@ -49,7 +51,6 @@ class Player
         if bullet.mesh.position.distance_to(enemy.mesh.position) <= 0.1 + 0.5
           enemy.hit
           @score.points += 100
-  
         else
           #
         end
@@ -59,9 +60,10 @@ class Player
   
   # enemyとplayerの接触処理 #
   def check2(enemies)
-    enemies.each do |enemy|
+    @enemies.each do |enemy|
       if enemy.mesh.position.distance_to(@mesh.position) <= 0.5 + 0.5
-        @hitpoint = 0
+        @hitpoint -= 20
+        game_director.mesh.geometry.height.set(@hitpoint)
         if @score.points >= 100
           @score.points -= 100
         end
@@ -74,6 +76,7 @@ class Player
     bullets.each do |bullet|
       if bullet.mesh2.position.distance_to(@mesh.position) <= 0.1 + 0.5
         @hitpoint -= 10
+        game_director.mesh.geometry.height.set(@hitpoint)
         #@scene.remove(bullet.mesh2)
         #@bullets.delete(bullet)
         if @score.points >= 100
@@ -86,13 +89,13 @@ class Player
   # HPの処理 #
   def update_hitpoints
     if @hitpoint == 20
-      game.mesh.material.color.set(0xff0000)
+      gamedirector.mesh.material.color.set(0xff0000)
       puts "hp danger!!!"
     elsif @hitpoint == 0
       puts "Game over"
       return 0
     else
-      return
+      #
     end
   end
 end
