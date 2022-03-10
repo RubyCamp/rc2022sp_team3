@@ -80,9 +80,15 @@ module Directors
 			if @time_count > 200
 			  @time_count = 0
 			end
+
+			#flagが0のenemyを削除#
+			@enemies.delete_if  do |enemy|
+				enemy.flag == 0
+			end
+
 		
 			@player.check(@enemies) # 動作済み #
-			@player.check2
+			@player.check2(@enemies)
 			@enemies.each do |enemy|
 			  @player.check3(enemy.bullets) 
 			end

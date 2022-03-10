@@ -2,6 +2,7 @@ require_relative 'bullet' #敵の弾はbulletのmesh2を使用
 
 class Enemy
   attr_accessor :mesh,:bullets
+  attr_reader :flag
 
   def initialize(x, y, z, renderer, scene)
     @x,@y,@z = x,y,z
