@@ -9,32 +9,29 @@ class Enemy
     @bullets =[]
     @flag = 1
 
-
     @mesh = Mittsu::Mesh.new(#メッシュにまとめて代入
       Mittsu::BoxGeometry.new(1, 1, 1),
       Mittsu::MeshBasicMaterial.new(color: 0x0000ff)
     )
     @mesh.position.set(@x, @y, @z)
 
-    # z軸30のところにenemy.mesh2をenemy.meshと同じように描画 #
-=begin
+    # z軸-30のところにenemy.mesh2をenemy.meshと同じように描画 #
     @mesh2 = Mittsu::Mesh.new(
       Mittsu::BoxGeometry.new(1, 1, 1),
       Mittsu::MeshBasicMaterial.new(color: 0x0000ff)
     )
     @mesh2.position.set(@x, @y, @z)
 
-    # z軸50のところにRuby画像をenemy.mesh3として描画 #
-    @mesh3 = Mittsu::Mesh.new(
-      texture = Mittsu::ImageUtils.load_texture(File.join File.dirname(__FILE__), 'rubig-ruby.png')
-      material = Mittsu::MeshBasicMaterial.new(map: texture)
-    )
-    @mesh3.position.set(@x, @y, @z)
-=end
+    # z軸-50のところにRuby画像をenemy.mesh3として描画 #
+    geometry = Mittsu::SphereGeometry.new(1.0, 32, 16)
+    texture = Mittsu::ImageUtils.load_texture(File.join File.dirname(__FILE__), 'images',"rubig-ruby.png")
+    material = Mittsu::MeshBasicMaterial.new(map: texture)
+    @ruby = Mittsu::Mesh.new(geometry, material)
+    @ruby.position.set(@x, @y, @z)
 
     @scene.add(@mesh)
     #@scene.add(@mesh2)
-    #@scene.add(@mesh3)
+    #@scene.add(@ruby)
   end
 
   def fire#敵が弾を発射
@@ -42,6 +39,7 @@ class Enemy
       bullet = Bullet.new(@x,@y,@z)
       @scene.add(bullet.mesh2)
       @bullets << bullet
+    else
     end
   end
 
@@ -53,9 +51,23 @@ class Enemy
   # enemy.mesh3に関しては別にhit, dead関数を作成 #
 
   # x, y, z軸全方向に対応したupdate関数を作成 #
-  def update#移動
-    @z += 1
-    @mesh.position.set(@x, @y, @z)
+  def update#(x,y,z)
+    dx = rand(3)
+		dy = rand(3)
+		case dx
+		when 1
+			self.mesh.position.x += 0.01
+		when 2
+			self.mesh.position.x -= 0.01
+		end
+
+		case dy
+		when 1
+			self.mesh.position.y += 0.01
+		when 2
+			self.mesh.position.y -= 0.01
+		end
+
   end
 
   def update2 
