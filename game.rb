@@ -20,7 +20,7 @@ class Game
       Mittsu::MeshBasicMaterial.new(color: 0xffff00)
     )
     @mesh.scale.set(2, 2, 2)
-    @mesh.position.set(-256, -256, 10)
+    @mesh.position.set(-400, -256, 10)
     @widget_scene.add(@mesh)
 
     @camera.position.z = 10.0
@@ -44,6 +44,7 @@ class Game
   def play
     @player.update
     @time_count += 1
+
     puts "#{@time_count}, (#{@player.mesh.position.x}, #{@player.mesh.position.y}, #{@player.mesh.position.z}), #{@player.hitpoint} ,#{@score.points}"
 
     @enemies.each do |enemy|
@@ -69,7 +70,7 @@ class Game
       @time_count = 0
     end
 
-    @player.check(@enemies)
+    @player.check(@enemies) # 動作済み #
     @player.check2
     @enemies.each do |enemy|
       @player.check3(enemy.bullets) 
