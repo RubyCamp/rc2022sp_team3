@@ -9,7 +9,6 @@ class Enemy
     @bullets =[]
     @flag = 1
 
-
     @mesh = Mittsu::Mesh.new(#メッシュにまとめて代入
       Mittsu::BoxGeometry.new(1, 1, 1),
       Mittsu::MeshBasicMaterial.new(color: 0x0000ff)
@@ -42,6 +41,7 @@ class Enemy
       bullet = Bullet.new(@x,@y,@z)
       @scene.add(bullet.mesh2)
       @bullets << bullet
+    else
     end
   end
 
@@ -53,8 +53,10 @@ class Enemy
   # enemy.mesh3に関しては別にhit, dead関数を作成 #
 
   # x, y, z軸全方向に対応したupdate関数を作成 #
-  def update#移動
-    @z += 1
+  def update(x,y,z)
+    @x+=x
+    @y+=y
+    @z+=z
     @mesh.position.set(@x, @y, @z)
   end
 
