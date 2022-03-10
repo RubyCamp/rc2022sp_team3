@@ -8,7 +8,7 @@ module Directors
 			super
 
 			# テキスト表示用パネルを生成し、カメラから程よい距離に配置する
-			@description = AnimatedPanel.new(width: 1, height: 0.25, start_frame: 15, map: TextureFactory.create_ending_description)
+			@description = AnimatedPanel.new(width: 1, height: 0.25, start_frame: 15, map: TextureFactory.create_texture_map("alpha-island_bk.png"))
 			@description.mesh.position.z = -0.5
 			self.scene.add(@description.mesh)
 		end

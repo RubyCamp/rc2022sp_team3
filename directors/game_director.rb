@@ -143,7 +143,6 @@ module Directors
 			end
 
 
-		
 			@player.check(@enemies) # 動作済み #
 			@player.check2(@enemies)# 動作済み #
 			@enemies.each do |enemy|# 動作済み #
@@ -152,7 +151,6 @@ module Directors
 			end
 			@score.update_points
 			@player.update_hitpoints
-		
 			@renderer.clear
 			@renderer.render(@widget_scene, @widget_camera)
 			@renderer.render(@scene, @camera)
