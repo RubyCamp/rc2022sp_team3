@@ -81,9 +81,9 @@ class Player
         if @score.points >= 100
           @score.points -= 100
         end
+      end
     end
   end
-end
 
   # HPの処理 #
   def update_hitpoints
