@@ -27,14 +27,24 @@ class Game
     @widget_camera.position.z = 10.0
     @score = Score.new(screen_width, screen_height)
     @time_count = 0
+    @flag = 0
     
     @enemies = []
     @bullets = []
-    5.times do
+    10.times do
       @enemy = Enemy.new((rand(1..5) - 3).to_f, (rand(1..5) -3).to_f, 0.0, @renderer, @scene)
       @scene.add(@enemy.mesh)
       @enemies << @enemy
     end
+
+    10.times do
+      @enemy2 = Enemy.new((rand(1..5) - 3).to_f, (rand(1..5) -3).to_f, -30.0, @renderer, @scene)
+      # @scene.add(@enemy.mesh2)
+      @enemies << @enemy2
+    end
+
+    @ruby = Enemy.new((rand(1..5) - 3).to_f, (rand(1..5) - 3).to_f, -50.0, @renderer, @scene)
+    # @scene.add(@ruby.ruby)
     
     @player = Player.new(0.0, 0.0, 10.0, @renderer, @scene, @score, @hitpoint)
     @scene.add(@player.mesh)
@@ -43,6 +53,17 @@ class Game
 
   def play
     @player.update
+
+    if @player.mesh.position.z == -20 && @flag == 0
+      @scene.add(@enemy2.mesh2)
+      @flag = 1
+    elsif @player.mesh.position.z == -20 && @flag == 1
+      @scene.add(@ruby.ruby)
+      @flag = 2
+    else
+      #
+    end
+
     @time_count += 1
 
     puts "#{@time_count}, (#{@player.mesh.position.x}, #{@player.mesh.position.y}, #{@player.mesh.position.z}), #{@player.hitpoint} ,#{@score.points}"
@@ -60,7 +81,7 @@ class Game
         enemy.fire
         enemy.update
       elsif @time_count == 120
-       
+        #
       else
         #
       end
