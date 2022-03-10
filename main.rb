@@ -12,7 +12,7 @@ ASPECT = SCREEN_WIDTH.to_f / SCREEN_HEIGHT.to_f
 
 scene = Mittsu::Scene.new
 camera = Mittsu::PerspectiveCamera.new(75.0, 1.333, 0.1, 1000.0)
-renderer = Mittsu::OpenGLRenderer.new width: SCREEN_WIDTH, height: SCREEN_HEIGHT, title: 'Sample Game'
+renderer = Mittsu::OpenGLRenderer.new width: SCREEN_WIDTH, height: SCREEN_HEIGHT, title: 'GAME:るーびっく'
 
 cube_map_texture = Mittsu::ImageUtils.load_texture_cube(
   [ 'rt', 'lf', 'up', 'dn', 'bk', 'ft' ].map { |path|
