@@ -153,12 +153,8 @@ module Directors
 			@player.update_hitpoints
 			@renderer.clear
 			@renderer.render(@widget_scene, @widget_camera)
-			#@renderer.render(@scene, @camera)
-			puts "rendaer 2"
-
+			@renderer.render(@scene, @camera)
 			@renderer.render(@score.scene, @score.camera)
-			puts "rendaer 3"
-
 		end
 		
 		
