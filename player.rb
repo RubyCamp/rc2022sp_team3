@@ -58,8 +58,8 @@ class Player
   end
   
   # enemyとplayerの接触処理 #
-  def check2
-    @enemies.each do |enemy|
+  def check2(enemies)
+    enemies.each do |enemy|
       if enemy.mesh.position.distance_to(@mesh.position) <= 0.5 + 0.5
         @hitpoint = 0
         if @score.points >= 100
