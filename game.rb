@@ -27,14 +27,24 @@ class Game
     @widget_camera.position.z = 10.0
     @score = Score.new(screen_width, screen_height)
     @time_count = 0
+    @flag = 0
     
     @enemies = []
     @bullets = []
-    5.times do
+    10.times do
       @enemy = Enemy.new((rand(1..5) - 3).to_f, (rand(1..5) -3).to_f, 0.0, @renderer, @scene)
       @scene.add(@enemy.mesh)
       @enemies << @enemy
     end
+
+    10.times do
+      @enemy2 = Enemy.new((rand(1..5) - 3).to_f, (rand(1..5) -3).to_f, -30.0, @renderer, @scene)
+      # @scene.add(@enemy.mesh2)
+      @enemies << @enemy2
+    end
+
+    @ruby = Enemy.new((rand(1..5) - 3).to_f, (rand(1..5) - 3).to_f, -50.0, @renderer, @scene)
+    # @scene.add(@ruby.ruby)
     
     @player = Player.new(0.0, 0.0, 10.0, @renderer, @scene, @score, @hitpoint)
     @scene.add(@player.mesh)
@@ -43,8 +53,20 @@ class Game
 
   def play
     @player.update
+
+    if @player.mesh.position.z == -20 && @flag == 0
+      @scene.add(@enemy2.mesh2)
+      @flag = 1
+    elsif @player.mesh.position.z == -20 && @flag == 1
+      @scene.add(@ruby.ruby)
+      @flag = 2
+    else
+      #
+    end
+
     @time_count += 1
-    puts "#{@time_count}, (#{@player.mesh.position.x}, #{@player.mesh.position.y}, #{@player.mesh.position.z}), #{@hitpoint}, #{@score.points}"
+
+    puts "#{@time_count}, (#{@player.mesh.position.x}, #{@player.mesh.position.y}, #{@player.mesh.position.z}), #{@player.hitpoint} ,#{@score.points}"
 
     @enemies.each do |enemy|
       enemy.bullets.each do |bullet|
@@ -55,26 +77,27 @@ class Game
     # 消滅したenemyからは弾が出ないようにする #
     # よりゲーム性を上げるように処理を増やす #
     @enemies.each do |enemy|
-      if @time_count == 60
+      if @time_count % 20 == 0
         enemy.fire
         enemy.update
       elsif @time_count == 120
-        enemy.update2
+       
       else
         #
       end
     end
 
-    if @time_count > 255
+    if @time_count > 200
       @time_count = 0
     end
 
     @player.check(@enemies) # 動作済み #
-    # @player.check2
-    # @player.check3 
-
-    @score.update_points # 動作済み #
-    @player.update_hitpoints 
+    @player.check2
+    @enemies.each do |enemy|
+      @player.check3(enemy.bullets) 
+    end
+    @score.update_points
+    @player.update_hitpoints
 
     @renderer.clear
     @renderer.render(@widget_scene, @widget_camera)
