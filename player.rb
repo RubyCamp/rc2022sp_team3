@@ -65,8 +65,6 @@ class Player
         if @score.points >= 100
           @score.points -= 100
         end
-      else
-        # 
       end
     end
   end
@@ -88,7 +86,7 @@ class Player
   # HPの処理 #
   def update_hitpoints
     if @hitpoint == 20
-      #game.mesh.material.color.set(0xff0000)
+      game.mesh.material.color.set(0xff0000)
       puts "hp danger!!!"
     elsif @hitpoint == 0
       puts "Game over"
