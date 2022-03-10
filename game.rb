@@ -57,25 +57,25 @@ class Game
     @enemies.each do |enemy|
       if @time_count == 60
         enemy.fire
-        enemy.update
+        enemy.update(1,0,0)
       elsif @time_count == 120
-        enemy.update2
+        enemy.update(0,1,0)
       else
         #
       end
     end
 
-    if @time_count > 255
+    if @time_count > 200
       @time_count = 0
     end
 
     @player.check(@enemies)
-    @player.check2(@enemies)
+    @player.check2
     @enemies.each do |enemy|
-    @player.check3(enemy.bullets) 
+      @player.check3(enemy.bullets) 
     end
     @score.update_points
-    @player.update_hitpoints #
+    @player.update_hitpoints
 
     @renderer.clear
     @renderer.render(@widget_scene, @widget_camera)
