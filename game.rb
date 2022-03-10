@@ -44,7 +44,7 @@ class Game
   def play
     @player.update
     @time_count += 1
-    puts "#{@time_count}, (#{@player.mesh.position.x}, #{@player.mesh.position.y}, #{@player.mesh.position.z}), #{@hitpoint}"
+    puts "#{@time_count}, (#{@player.mesh.position.x}, #{@player.mesh.position.y}, #{@player.mesh.position.z}), #{@player.hitpoint} ,#{@score.points}"
 
     @enemies.each do |enemy|
       enemy.bullets.each do |bullet|
@@ -55,7 +55,7 @@ class Game
     # 消滅したenemyからは弾が出ないようにする #
     # よりゲーム性を上げるように処理を増やす #
     @enemies.each do |enemy|
-      if @time_count == 60
+      if @time_count % 20 == 0
         enemy.fire
         enemy.update(1,0,0)
       elsif @time_count == 120
