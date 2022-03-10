@@ -49,7 +49,7 @@ class Player
           enemy.hit
           @score.points += 100
         else
-          # 衝突してない
+          #
         end
       end
     end
@@ -60,7 +60,9 @@ class Player
     @enemies.each do |enemy|
       if enemy.mesh.position.distance_to(@mesh.position) <= 0.5 + 0.5
         @hitpoint = 0
-        @score.points -= 100
+        if @score.points >= 100
+          @score.points -= 100
+        end
       else
         # 
       end
@@ -74,7 +76,9 @@ class Player
         @hitpoint -= 10
         #@scene.remove(bullet.mesh2)
         #@bullets.delete(bullet)
-        @score.points -= 100
+        if @score.points >= 100
+          @score.points -= 100
+        end
       else
         # 
       end
