@@ -8,7 +8,6 @@ module Directors
       super
       # タイトル画面の次に遷移するシーンのディレクターオブジェクトを用意
       self.next_director = GameDirector.new(renderer, screen_width, screen_height)
-      puts "タイトル#{self.next_director}"
       # タイトル画面の登場オブジェクト群を生成
       create_objects
     end
@@ -51,7 +50,6 @@ module Directors
       @description = Panel.new(width: 1, height: 1, start_frame: 0, map: TextureFactory.create_texture_map("alpha-island_bk.png"))
       @description.mesh.position.y = -0.2
       @description.mesh.position.z = -0.5
-      puts "#{@description}"
       self.scene.add(@description.mesh)
     end
 
