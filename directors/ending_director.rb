@@ -4,7 +4,7 @@ module Directors
 	# エンディング画面用ディレクター
 	class EndingDirector < Base
 		# 初期化
-		def initialize(screen_width:, screen_height:, renderer:)
+		def initialize(renderer, screen_width, screen_height)
 			super
 
 			# テキスト表示用パネルを生成し、カメラから程よい距離に配置する
