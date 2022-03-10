@@ -51,7 +51,6 @@ class Enemy
   # enemy.mesh3に関しては別にhit, dead関数を作成 #
 
   # x, y, z軸全方向に対応したupdate関数を作成 #
-<<<<<<< HEAD
   def update#(x,y,z)
     dx = rand(3)
 		dy = rand(3)
@@ -68,14 +67,6 @@ class Enemy
 		when 2
 			self.mesh.position.y -= 0.01
 		end
-
-=======
-  def update(x,y,z)
-    @x+=x
-    @y+=y
-    @z+=z
-    @mesh.position.set(@x, @y, @z)
->>>>>>> 5c7bed346c6e6a0940e1d0f24ca19417dacd4368
   end
 
   def update2 
