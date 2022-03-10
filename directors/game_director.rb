@@ -11,7 +11,7 @@ module Directors
 			super
 
 			# ゲーム本編の次に遷移するシーンのディレクターオブジェクトを用意
-			#self.next_director = EndingDirector.new(screen_width: screen_width, screen_height: screen_height, renderer: renderer)
+			self.next_director = EndingDirector.new(renderer, screen_width, screen_height)
 
 			# ゲーム本編の登場オブジェクト群を生成
 			
