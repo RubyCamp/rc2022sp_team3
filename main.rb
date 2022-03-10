@@ -32,13 +32,19 @@ scene.add(skybox)
 
 game = Game.new(renderer, SCREEN_WIDTH, SCREEN_HEIGHT)
 # 
-director = Directors::GameDirector.new(renderer, SCREEN_WIDTH, SCREEN_HEIGHT)
+director = Directors::TitleDirector.new(renderer, SCREEN_WIDTH, SCREEN_HEIGHT)
+
+# キー押下時のイベントハンドラを登録
+renderer.window.on_key_pressed do |glfw_key|
+	director.on_key_pressed(glfw_key: glfw_key)
+end
 
 
 # オープニング画面とゲームクリア画面の追加(画面遷移込み) #
 # (出来れば)"Retry" "Exit"ボタン?を追加 #
 renderer.window.run do
+  # ※ これによって、シーン切替を実現している。メカニズムの詳細はdirectors/base.rb参照
+	director = director.current_director
   director.play
   renderer.render(scene, camera)
-
 end
