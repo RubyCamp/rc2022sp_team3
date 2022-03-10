@@ -86,7 +86,6 @@ module Directors
 				enemy.flag == 0
 			end
 
-		
 			@player.check(@enemies) # 動作済み #
 			@player.check2(@enemies)
 			@enemies.each do |enemy|
@@ -94,11 +93,14 @@ module Directors
 			end
 			@score.update_points
 			@player.update_hitpoints
-		
 			@renderer.clear
 			@renderer.render(@widget_scene, @widget_camera)
-			@renderer.render(@scene, @camera)
+			#@renderer.render(@scene, @camera)
+			puts "rendaer 2"
+
 			@renderer.render(@score.scene, @score.camera)
+			puts "rendaer 3"
+
 		end
 		
 		
