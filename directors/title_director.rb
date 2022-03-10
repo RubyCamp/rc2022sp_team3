@@ -48,11 +48,11 @@ module Directors
       # 説明文字列用のパネル作成
       # タイトル画面表示開始から180フレーム経過で表示するように調整
       # 位置は適当に決め打ち
-      @description = Panel.new(width: 1, height: 0.25, start_frame: 180, map: TextureFactory.create_title_description)
+      @description = Panel.new(width: 1, height: 1, start_frame: 0, map: TextureFactory.create_texture_map("alpha-island_bk.png"))
       @description.mesh.position.y = -0.2
       @description.mesh.position.z = -0.5
       puts "#{@description}"
-      #self.scene.add(@description.mesh)
+      self.scene.add(@description.mesh)
     end
 
     # タイトルロゴ用アニメーションパネル作成
