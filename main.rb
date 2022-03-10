@@ -1,7 +1,8 @@
 require 'mittsu'
-require_relative 'game'
+require_relative 'player'
+require_relative 'enemy'
+require_relative 'score'
 Dir.glob("directors/*.rb") {|path| require_relative path }
-
 
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 768
@@ -30,7 +31,6 @@ skybox_material = Mittsu::ShaderMaterial.new({
 skybox = Mittsu::Mesh.new(Mittsu::BoxGeometry.new(100, 100, 100), skybox_material)
 scene.add(skybox)
 
-game = Game.new(renderer, SCREEN_WIDTH, SCREEN_HEIGHT)
 # 
 director = Directors::TitleDirector.new(renderer, SCREEN_WIDTH, SCREEN_HEIGHT)
 

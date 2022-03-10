@@ -24,14 +24,14 @@ class Enemy
     @mesh2.position.set(@x, @y, @z)
 
     # z軸-50のところにRuby画像をenemy.mesh3として描画 #
-    geometry = Mittsu::SphereGeometry.new(1.0, 32, 16)
-    texture = Mittsu::ImageUtils.load_texture(File.join File.dirname(__FILE__), 'images',"rubig-ruby.png")
+    geometry = Mittsu::BoxGeometry.new(1,1,1)
+    texture = Mittsu::ImageUtils.load_texture(File.join File.dirname(__FILE__), "texture1.png")
     material = Mittsu::MeshBasicMaterial.new(map: texture)
     @ruby = Mittsu::Mesh.new(geometry, material)
     @ruby.position.set(@x, @y, @z)
 
     @scene.add(@mesh)
-    #@scene.add(@mesh2)
+    @scene.add(@mesh2)
     @scene.add(@ruby)
   end
 
