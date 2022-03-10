@@ -1,7 +1,9 @@
 require 'mittsu'
+
 require_relative 'player'
 require_relative 'enemy'
 require_relative 'score'
+
 Dir.glob("directors/*.rb") {|path| require_relative path }
 
 SCREEN_WIDTH = 1024

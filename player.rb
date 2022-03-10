@@ -3,8 +3,8 @@ Dir.glob("directors/game_director.rb") {|path| require_relative path }
 # require_relative 'directors/game_director'
 
 class Player
-  attr_accessor :mesh
-  attr_reader :killcount,:hitpoint
+  attr_accessor :mesh,:killcount
+  attr_reader :hitpoint
   
   def initialize(x, y, z, renderer, scene, score, hitpoint)
     @mesh = Mittsu::Mesh.new(
@@ -51,8 +51,9 @@ class Player
         if bullet.mesh.position.distance_to(enemy.mesh.position) <= 0.1 + 0.5
           enemy.hit
           @score.points += 100
+          @killcount+=1
         else
-          #
+          
         end
       end
     end
@@ -77,6 +78,20 @@ class Player
       if bullet.mesh2.position.distance_to(@mesh.position) <= 0.1 + 0.5
         @hitpoint -= 10
         game_director.mesh.geometry.height.set(@hitpoint)
+        #@scene.remove(bullet.mesh2)
+        #@bullets.delete(bullet)
+        if @score.points >= 100
+          @score.points -= 100
+        end
+      end
+    end
+  end
+  
+  #bossの弾の処理
+  def check4(boss)
+    boss.bullets.each do |bullet|
+      if bullet.mesh2.position.distance_to(@mesh.position) <= 0.1 + 0.5
+        @hitpoint -= 10
         #@scene.remove(bullet.mesh2)
         #@bullets.delete(bullet)
         if @score.points >= 100
