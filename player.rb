@@ -48,6 +48,7 @@ class Player
         if bullet.mesh.position.distance_to(enemy.mesh.position) <= 0.1 + 0.5
           enemy.hit
           @score.points += 100
+  
         else
           # 衝突してない
         end
@@ -68,8 +69,8 @@ class Player
   end
 
   # enemyの弾とplayerの接触処理 #
-  def check3
-    @bullets.each do |bullet|
+  def check3(bullets)
+    bullets.each do |bullet|
       if bullet.mesh2.position.distance_to(@mesh.position) <= 0.1 + 0.5
         @hitpoint -= 10
         #@scene.remove(bullet.mesh2)
