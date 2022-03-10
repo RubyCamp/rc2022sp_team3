@@ -32,7 +32,7 @@ class Enemy
 
     @scene.add(@mesh)
     #@scene.add(@mesh2)
-    #@scene.add(@ruby)
+    @scene.add(@ruby)
   end
 
   def fire#敵が弾を発射
