@@ -10,6 +10,8 @@ module Directors
 		def initialize(renderer, screen_width, screen_height)
 			super
 
+			@bossflg = false
+
 			# ゲーム本編の次に遷移するシーンのディレクターオブジェクトを用意
 			#self.next_director = EndingDirector.new(screen_width: screen_width, screen_height: screen_height, renderer: renderer)
 
@@ -68,6 +70,14 @@ module Directors
 			@enemies.delete_if  do |enemy|
 				enemy.flag == 0
 			end
+			#bossを削除
+			if @bossflg == true
+				if @boss.flag == 0
+					@scene.remove(@boss)
+					puts "gameclear"
+				end
+			end
+
 			#5以上の敵を倒していたら敵を追加
 			if @player.killcount >= 5
 				5.times do |i|
@@ -78,19 +88,37 @@ module Directors
 				@player.killcount = 0
 			end
 	  
-					 
-		
 			# よりゲーム性を上げるように処理を増やす #
+			#ボスの処理↓
+			if @bossflg == true
+				@player.check4(@boss)
+				@boss.updatehit
+				if @time_count % 20 == 0
+						#@boss.fire
+						@boss.update
+				end
+				@boss.bullets.each do |bullet|
+					bullet.updete2
+				end
+			end
+			#ボス処理終わり↑
+
 			@enemies.each do |enemy|
 			  if @time_count % 20 == 0
-				enemy.fire
-				enemy.update
+				#enemy.fire
+				#enemy.update
 			  elsif @time_count == 120
 			  end
 			end
-			if @time_count > 200
+			if @time_count > 100
+				if @bossflg == false
+				@boss = Boss.new(0,0,0,@renderer,@scene)
+				@bossflg = true
+				end
 			  @time_count = 0
 			end
+
+
 		
 			@player.check(@enemies) # 動作済み #
 			@player.check2(@enemies)# 動作済み #

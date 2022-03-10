@@ -82,6 +82,20 @@ class Player
       end
     end
   end
+  
+  #bossの弾の処理
+  def check4(boss)
+    boss.bullets.each do |bullet|
+      if bullet.mesh2.position.distance_to(@mesh.position) <= 0.1 + 0.5
+        @hitpoint -= 10
+        #@scene.remove(bullet.mesh2)
+        #@bullets.delete(bullet)
+        if @score.points >= 100
+          @score.points -= 100
+        end
+      end
+    end
+  end
 
   # HPの処理 #
   def update_hitpoints

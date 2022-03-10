@@ -1,5 +1,8 @@
 require 'mittsu'
 require_relative 'game'
+require_relative 'boss.rb'
+require_relative 'bullet.rb'
+
 Dir.glob("directors/*.rb") {|path| require_relative path }
 
 
