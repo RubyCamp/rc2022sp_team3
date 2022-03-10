@@ -8,8 +8,8 @@ class Player
   
   def initialize(x, y, z, renderer, scene, score, hitpoint)
     @mesh = Mittsu::Mesh.new(
-      Mittsu::BoxGeometry.new(1.0, 1.0, 1.0),
-      Mittsu::MeshBasicMaterial.new(color: 0x00ff00)
+      Mittsu::BoxGeometry.new(0, 0, 0),
+      Mittsu::MeshBasicMaterial.new(color: 0x000000, opacity: 0.0, transparent: true)
     )
     @mesh.position.set(x, y, z)
 
