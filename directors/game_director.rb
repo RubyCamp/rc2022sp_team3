@@ -13,7 +13,7 @@ module Directors
 			@bossflg = false
 
 			# ゲーム本編の次に遷移するシーンのディレクターオブジェクトを用意
-			#self.next_director = EndingDirector.new(screen_width: screen_width, screen_height: screen_height, renderer: renderer)
+			self.next_director = EndingDirector.new(renderer, screen_width, screen_height)
 
 			# ゲーム本編の登場オブジェクト群を生成
 			
@@ -29,7 +29,7 @@ module Directors
 			@hitpoint = 100
 		
 			@mesh = Mittsu::Mesh.new(
-			  Mittsu::BoxGeometry.new(2.0, @hitpoint, 0),
+			  Mittsu::BoxGeometry.new(5.0, @hitpoint, 0),
 			  Mittsu::MeshBasicMaterial.new(color: 0xffff00)
 			)
 			@mesh.scale.set(2, 2, 2)
@@ -40,14 +40,24 @@ module Directors
 			@widget_camera.position.z = 10.0
 			@score = Score.new(screen_width, screen_height)
 			@time_count = 0
+			@flag = 0
 			
 			@enemies = []
 			@bullets = []
-			5.times do
+			10.times do
 			  @enemy = Enemy.new((rand(1..5) - 3).to_f, (rand(1..5) -3).to_f, 0.0, @renderer, @scene)
 			  @scene.add(@enemy.mesh)
 			  @enemies << @enemy
 			end
+
+			10.times do
+				@enemy2 = Enemy.new((rand(1..5) - 3).to_f, (rand(1..5) -3).to_f, -30.0, @renderer, @scene)
+				# @scene.add(@enemy.mesh2)
+				@enemies << @enemy2
+			  end
+		  
+			@ruby = Enemy.new((rand(1..5) - 3).to_f, (rand(1..5) - 3).to_f, -50.0, @renderer, @scene)
+			# @scene.add(@ruby.ruby)
 			
 			@player = Player.new(0.0, 0.0, 10.0, @renderer, @scene, @score, @hitpoint)
 			@scene.add(@player.mesh)
@@ -56,6 +66,17 @@ module Directors
 		
 		  def play
 			@player.update
+
+			if @player.mesh.position.z == -20 && @flag == 0
+			  @scene.add(@enemy2.mesh2)
+			  @flag = 1
+			elsif @player.mesh.position.z == -40 && @flag == 1
+			  @scene.add(@ruby.ruby)
+			  @flag = 2
+			else
+			  #
+			end
+
 			@time_count += 1
 		
 			puts "#{@time_count}, (#{@player.mesh.position.x}, #{@player.mesh.position.y}, #{@player.mesh.position.z}), #{@player.hitpoint} ,#{@score.points}"
@@ -108,6 +129,9 @@ module Directors
 				#enemy.fire
 				#enemy.update
 			  elsif @time_count == 120
+			    enemy.update2
+			  else
+				#
 			  end
 			end
 			if @time_count > 100
@@ -124,6 +148,7 @@ module Directors
 			@player.check2(@enemies)# 動作済み #
 			@enemies.each do |enemy|# 動作済み #
 			  @player.check3(enemy.bullets) 
+
 			end
 			@score.update_points
 			@player.update_hitpoints

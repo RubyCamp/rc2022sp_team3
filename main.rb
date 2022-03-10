@@ -1,10 +1,10 @@
 require 'mittsu'
-require_relative 'game'
-require_relative 'boss.rb'
-require_relative 'bullet.rb'
+
+require_relative 'player'
+require_relative 'enemy'
+require_relative 'score'
 
 Dir.glob("directors/*.rb") {|path| require_relative path }
-
 
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 768
@@ -33,15 +33,20 @@ skybox_material = Mittsu::ShaderMaterial.new({
 skybox = Mittsu::Mesh.new(Mittsu::BoxGeometry.new(100, 100, 100), skybox_material)
 scene.add(skybox)
 
-game = Game.new(renderer, SCREEN_WIDTH, SCREEN_HEIGHT)
 # 
-director = Directors::GameDirector.new(renderer, SCREEN_WIDTH, SCREEN_HEIGHT)
+director = Directors::TitleDirector.new(renderer, SCREEN_WIDTH, SCREEN_HEIGHT)
+
+# キー押下時のイベントハンドラを登録
+renderer.window.on_key_pressed do |glfw_key|
+	director.on_key_pressed(glfw_key: glfw_key)
+end
 
 
 # オープニング画面とゲームクリア画面の追加(画面遷移込み) #
 # (出来れば)"Retry" "Exit"ボタン?を追加 #
 renderer.window.run do
+  # ※ これによって、シーン切替を実現している。メカニズムの詳細はdirectors/base.rb参照
+	director = director.current_director
   director.play
   renderer.render(scene, camera)
-
 end
