@@ -6,19 +6,14 @@ module Directors
 		CAMERA_ROTATE_SPEED_X = 0.01
 		CAMERA_ROTATE_SPEED_Y = 0.01
 
-		# 初期化
 		def initialize(renderer, screen_width, screen_height)
 			super
 			# ゲーム本編の次に遷移するシーンのディレクターオブジェクトを用意
 			self.next_director = EndingDirector.new(renderer, screen_width, screen_height)
-
-			# ゲーム本編の登場オブジェクト群を生成
 			
 			@renderer = renderer
 			renderer.auto_clear = false
-		
-			# 体力ゲージ描画を要微調整 #
-		
+				
 			@widget_scene = Mittsu::Scene.new
 			@widget_camera = Mittsu::OrthographicCamera.new(screen_width / 2.0, -screen_width / 2.0, screen_height / 2.0, -screen_height / 2.0, 0.0, 1.0)
 			@scene = Mittsu::Scene.new
@@ -62,7 +57,8 @@ module Directors
 					bullet.update2
 				end
 			end
-			#flagが0のenemyを削除#
+			
+			#死んだ敵を削除
 			@enemies.delete_if  do |enemy|
 				enemy.flag == 0
 			end
@@ -77,31 +73,28 @@ module Directors
 				@player.killcount = 0
 			end
 	  
+			#敵が弾を撃って移動
 			@enemies.each do |enemy|
 			  if @time_count % 20 == 0
-				#enemy.fire
-				#enemy.update
-			  elsif @time_count == 120
-			    enemy.update2
-			  else
-				#
-			  end
+				enemy.fire
+				enemy.update
 			end
+
 			if @time_count > 100
 			  @time_count = 0
 			end
 
-			@player.check(@enemies) # 動作済み #
-			@player.check2(@enemies)# 動作済み #
-			@enemies.each do |enemy|# 動作済み #
+			@player.check(@enemies) 
+			@enemies.each do |enemy|
 			  @player.check3(enemy.bullets) 
 			end
 			@score.update_points
 			@player.update_hitpoints
-			#@renderer.clear
+			@renderer.clear
 			@renderer.render(@widget_scene, @widget_camera)
 			@renderer.render(@scene, @camera)
 			@renderer.render(@score.scene, @score.camera)
 		end		
 	end
+end
 end

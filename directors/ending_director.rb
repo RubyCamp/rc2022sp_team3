@@ -25,7 +25,7 @@ module Directors
 				# ESCキー押下で終了する
 				when GLFW_KEY_ESCAPE
 					puts "クリア!!"
-					transition_to_next_director # self.next_directorがセットされていないのでメインループが終わる
+					transition_to_next_director # self.next_directorがセットされていないのでメインループが終わるd
 			end
 		end
 	end
