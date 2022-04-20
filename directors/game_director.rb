@@ -9,9 +9,6 @@ module Directors
 		# 初期化
 		def initialize(renderer, screen_width, screen_height)
 			super
-
-			@bossflg = false
-
 			# ゲーム本編の次に遷移するシーンのディレクターオブジェクトを用意
 			self.next_director = EndingDirector.new(renderer, screen_width, screen_height)
 
@@ -49,37 +46,15 @@ module Directors
 			  @scene.add(@enemy.mesh)
 			  @enemies << @enemy
 			end
-
-			10.times do
-				@enemy2 = Enemy.new((rand(1..5) - 3).to_f, (rand(1..5) -3).to_f, -30.0, @renderer, @scene)
-				# @scene.add(@enemy.mesh2)
-				@enemies << @enemy2
-			  end
-		  
-			@ruby = Enemy.new((rand(1..5) - 3).to_f, (rand(1..5) - 3).to_f, -50.0, @renderer, @scene)
-			# @scene.add(@ruby.ruby)
 			
 			@player = Player.new(0.0, 0.0, 10.0, @renderer, @scene, @score, @hitpoint)
 			@scene.add(@player.mesh)
 			@player.mesh.add(@camera)
 		  end
-		
+
 		  def play
 			@player.update
-
-			if @player.mesh.position.z == -20 && @flag == 0
-			  @scene.add(@enemy2.mesh2)
-			  @flag = 1
-			elsif @player.mesh.position.z == -40 && @flag == 1
-			  @scene.add(@ruby.ruby)
-			  @flag = 2
-			else
-			  #
-			end
-
 			@time_count += 1
-		
-			puts "#{@time_count}, (#{@player.mesh.position.x}, #{@player.mesh.position.y}, #{@player.mesh.position.z}), #{@player.hitpoint} ,#{@score.points}"
 
 			#敵弾の移動
 			@enemies.each do |enemy|
@@ -90,13 +65,6 @@ module Directors
 			#flagが0のenemyを削除#
 			@enemies.delete_if  do |enemy|
 				enemy.flag == 0
-			end
-			#bossを削除
-			if @bossflg == true
-				if @boss.flag == 0
-					@scene.remove(@boss)
-					puts "gameclear"
-				end
 			end
 
 			#5以上の敵を倒していたら敵を追加
@@ -109,21 +77,6 @@ module Directors
 				@player.killcount = 0
 			end
 	  
-			# よりゲーム性を上げるように処理を増やす #
-			#ボスの処理↓
-			if @bossflg == true
-				@player.check4(@boss)
-				@boss.updatehit
-				if @time_count % 20 == 0
-						#@boss.fire
-						@boss.update
-				end
-				@boss.bullets.each do |bullet|
-					bullet.updete2
-				end
-			end
-			#ボス処理終わり↑
-
 			@enemies.each do |enemy|
 			  if @time_count % 20 == 0
 				#enemy.fire
@@ -135,41 +88,20 @@ module Directors
 			  end
 			end
 			if @time_count > 100
-				if @bossflg == false
-				@boss = Boss.new(0,0,0,@renderer,@scene)
-				@bossflg = true
-				end
 			  @time_count = 0
 			end
-
 
 			@player.check(@enemies) # 動作済み #
 			@player.check2(@enemies)# 動作済み #
 			@enemies.each do |enemy|# 動作済み #
 			  @player.check3(enemy.bullets) 
-
 			end
 			@score.update_points
 			@player.update_hitpoints
-			@renderer.clear
+			#@renderer.clear
 			@renderer.render(@widget_scene, @widget_camera)
 			@renderer.render(@scene, @camera)
 			@renderer.render(@score.scene, @score.camera)
-		end
-		
-		
-		# キー押下（単発）時のハンドリング
-		def on_key_pressed(glfw_key:)
-			case glfw_key
-				# ESCキー押下でエンディングに無理やり遷移
-				when GLFW_KEY_ESCAPE
-					puts "シーン遷移 → EndingDirector"
-					transition_to_next_director
-
-				# SPACEキー押下で弾丸を発射
-				when GLFW_KEY_SPACE
-					shoot
-			end
-		end
+		end		
 	end
 end
