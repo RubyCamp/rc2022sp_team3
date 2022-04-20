@@ -58,7 +58,7 @@ module Directors
 				end
 			end
 			
-			#死んだ敵を削除
+			#死んだ敵を配列から削除
 			@enemies.delete_if  do |enemy|
 				enemy.flag == 0
 			end
@@ -81,6 +81,7 @@ module Directors
 			end
 
 			if @time_count > 100
+				puts @time_count
 			  @time_count = 0
 			end
 

@@ -13,21 +13,20 @@ class Player
 
     @renderer = renderer
     @scene = scene
-    
-    @bullets = []
-    @enemies = []
-    renderer.window.on_mouse_button_pressed do |glfw_button, position|
-      case glfw_button
-      when GLFW_MOUSE_BUTTON_LEFT
-        bullet = Bullet.new(@mesh.position.x, @mesh.position.y, @mesh.position.z)
-        @scene.add(bullet.mesh)
-        @bullets << bullet
-      end
-    end
-    
+    @bullets = []    
     @score = score
     @hitpoint = hitpoint
     @killcount = 0
+
+        #左クリックで弾発射
+        renderer.window.on_mouse_button_pressed do |glfw_button, position|
+          case glfw_button
+          when GLFW_MOUSE_BUTTON_LEFT
+            bullet = Bullet.new(@mesh.position.x, @mesh.position.y, @mesh.position.z)
+            @scene.add(bullet.mesh)
+            @bullets << bullet
+          end
+        end    
   end
 
   def update
@@ -69,7 +68,7 @@ class Player
     end
   end
 
-  # HPの処理 #
+  #プレイヤーのHPが0になったら
   def update_hitpoints    
     if @hitpoint == 0
       puts "Game over"

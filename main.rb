@@ -1,5 +1,4 @@
 require 'mittsu'
-
 require_relative 'player'
 require_relative 'enemy'
 require_relative 'score'
